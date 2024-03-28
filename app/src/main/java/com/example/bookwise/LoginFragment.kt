@@ -39,8 +39,15 @@ class LoginFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_login, container, false)
+
+        //New User Registration
         binding.newUserTv.setOnClickListener{
             findNavController().navigate(R.id.action_loginFragment_to_newUserFragment)
+        }
+
+        //Handling Forget Password
+        binding.forgotPasswordTv.setOnClickListener{
+            findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
         }
         return binding.root
     }
