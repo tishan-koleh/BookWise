@@ -8,7 +8,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Member.MemberActivity"
-    android:background="#EEF4FC">
+    android:background="#EEF4FC"
+    tools:openDrawer="start">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -40,7 +41,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#EAFAF1" />
+        android:background="#EAFAF1"
+        app:headerLayout="@layout/header"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>
 </layout>
