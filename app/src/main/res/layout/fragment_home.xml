@@ -14,12 +14,102 @@
         android:layout_height="match_parent"
       android:orientation="vertical">
 
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginVertical="70dp"
+          android:background="#EEF4FC"
+          android:orientation="horizontal"
+          android:paddingHorizontal="30dp">
+
+        <LinearLayout
+            android:id="@+id/member_button"
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/button_background"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/book_button"
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/button_background"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+      </LinearLayout>
+
       <ImageView
           android:id="@+id/imageView5"
           android:layout_width="match_parent"
           android:layout_height="250dp"
           android:layout_marginTop="40dp"
           android:src="@drawable/undraw_book_image" />
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginVertical="70dp"
+          android:background="#EEF4FC"
+          android:orientation="horizontal"
+          android:paddingHorizontal="30dp">
+
+        <LinearLayout
+            android:id="@+id/member_button"
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/button_background"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/book_button"
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/button_background"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:background="#EEF4FC"
+          android:orientation="horizontal"
+          android:paddingHorizontal="30dp">
+
+        <LinearLayout
+            android:id="@+id/member_button"
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/button_background"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/book_button"
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/button_background"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+      </LinearLayout>
+
     </LinearLayout>
   </androidx.core.widget.NestedScrollView>
 

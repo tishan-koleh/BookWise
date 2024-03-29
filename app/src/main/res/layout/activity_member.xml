@@ -38,17 +38,19 @@
         </com.google.android.material.appbar.AppBarLayout>
 
 
-
-                <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/fragmentContainerView_member"
-                    android:name="androidx.navigation.fragment.NavHostFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="575dp"
-                    android:layout_marginTop="1dp"
-                    app:defaultNavHost="true"
-                    app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-                    app:navGraph="@navigation/member_nav_graph"
-                    tools:layout_editor_absoluteX="1dp" />
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView_member"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+            app:layout_constraintVertical_bias="0.0"
+            app:navGraph="@navigation/member_nav_graph" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
