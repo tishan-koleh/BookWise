@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/member_nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.bookwise.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_booksFragment"
+            app:destination="@id/booksFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_fineFragment"
+            app:destination="@id/fineFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_returnFragment"
+            app:destination="@id/returnFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_dueFragment"
+            app:destination="@id/dueFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/booksFragment"
+        android:name="com.example.bookwise.BooksFragment"
+        android:label="fragment_books"
+        tools:layout="@layout/fragment_books" />
+    <fragment
+        android:id="@+id/returnFragment"
+        android:name="com.example.bookwise.ReturnFragment"
+        android:label="fragment_return"
+        tools:layout="@layout/fragment_return" />
+    <fragment
+        android:id="@+id/fineFragment"
+        android:name="com.example.bookwise.FineFragment"
+        android:label="fragment_fine"
+        tools:layout="@layout/fragment_fine" />
+    <fragment
+        android:id="@+id/dueFragment"
+        android:name="com.example.bookwise.DueFragment"
+        android:label="fragment_due"
+        tools:layout="@layout/fragment_due" />
+</navigation>
