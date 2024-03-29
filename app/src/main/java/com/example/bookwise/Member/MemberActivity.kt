@@ -20,8 +20,17 @@ class MemberActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        //Click menu button to open Navigation DRawer
         binding.toolbar.setNavigationOnClickListener {
             binding.main.open()
+        }
+
+
+        //State selector for Items
+        binding.navigationView.setNavigationItemSelectedListener {
+            it.isChecked = true
+            return@setNavigationItemSelectedListener true
         }
     }
 }
