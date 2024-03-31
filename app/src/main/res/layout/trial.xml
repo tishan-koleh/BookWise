@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageViewLibraryLogo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/menu_icon"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/textViewMemberName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name: John Doe"
+            android:textSize="18sp"
+            android:layout_below="@id/imageViewLibraryLogo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/textViewMemberID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID: 123456"
+            android:textSize="18sp"
+            android:layout_below="@id/textViewMemberName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/textViewJoiningDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Joining Date: 01/01/2024"
+            android:textSize="18sp"
+            android:layout_below="@id/textViewMemberID"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/textViewCardID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Card ID: 78901234"
+            android:textSize="18sp"
+            android:layout_below="@id/textViewJoiningDate"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"/>
+
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

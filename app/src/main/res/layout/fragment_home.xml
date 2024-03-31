@@ -46,6 +46,7 @@
             android:layout_width="150dp"
             android:layout_height="80dp"
             android:background="@drawable/button_background"
+            android:paddingVertical="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -53,6 +54,28 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0">
 
+          <TextView
+              android:id="@+id/textView"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_horizontal"
+              android:layout_margin="10dp"
+              android:fontFamily="@font/inter"
+              android:text="Membership"
+              android:textAlignment="viewStart"
+              android:textSize="16sp"
+              android:textStyle="bold" />
+
+          <TextView
+              android:id="@+id/textView2"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_horizontal"
+              android:layout_marginTop="28dp"
+              android:fontFamily="@font/inter"
+              android:text="Card"
+              android:textSize="16sp"
+              android:textStyle="bold" />
         </FrameLayout>
 
         <FrameLayout
@@ -60,6 +83,7 @@
             android:layout_width="150dp"
             android:layout_height="80dp"
             android:background="@drawable/button_background"
+            android:paddingVertical="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -67,6 +91,28 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0">
 
+          <TextView
+              android:id="@+id/textView3"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_horizontal"
+              android:layout_marginTop="10dp"
+              android:fontFamily="@font/inter"
+              android:text="Books Available"
+              android:textSize="16sp"
+              android:textStyle="bold" />
+
+          <TextView
+              android:id="@+id/textView4"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="15dp"
+              android:layout_marginTop="28dp"
+              android:fontFamily="@font/inter"
+              android:gravity="left"
+              android:text="1120"
+              android:textSize="16sp"
+              android:textStyle="bold" />
         </FrameLayout>
 
 
@@ -88,6 +134,7 @@
             android:layout_width="150dp"
             android:layout_height="80dp"
             android:background="@drawable/button_background"
+            android:paddingVertical="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -95,6 +142,28 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0">
 
+          <TextView
+              android:id="@+id/textView3"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_horizontal"
+              android:layout_marginTop="10dp"
+              android:fontFamily="@font/inter"
+              android:text="Books Borrowed"
+              android:textSize="16sp"
+              android:textStyle="bold" />
+
+          <TextView
+              android:id="@+id/textView4"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="15dp"
+              android:layout_marginTop="28dp"
+              android:fontFamily="@font/inter"
+              android:gravity="left"
+              android:text="139"
+              android:textSize="16sp"
+              android:textStyle="bold" />
         </FrameLayout>
 
         <FrameLayout
