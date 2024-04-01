@@ -1,5 +1,6 @@
 package com.example.bookwise
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
+import com.example.bookwise.Member.MemberActivity1
 import com.example.bookwise.databinding.FragmentLoginBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -48,6 +50,9 @@ class LoginFragment : Fragment() {
         //Handling Forget Password
         binding.forgotPasswordTv.setOnClickListener{
             findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
+        }
+        binding.button.setOnClickListener {
+            startActivity(Intent(this@LoginFragment.activity,MemberActivity1::class.java))
         }
         return binding.root
     }

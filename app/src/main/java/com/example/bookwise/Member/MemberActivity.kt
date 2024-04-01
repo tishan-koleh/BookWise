@@ -66,7 +66,7 @@ class MemberActivity : AppCompatActivity() {
                     findNavController(R.id.fragmentContainerView_member).navigate(R.id.fineFragment)
                 }
                 R.id.logout->{
-                    finish()
+                    startActivity(Intent(this,MainActivity::class.java))
                 }
             }
             return@setNavigationItemSelectedListener true
