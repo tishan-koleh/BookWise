@@ -25,7 +25,7 @@
       <ImageView
           android:id="@+id/imageView2"
           android:layout_width="match_parent"
-          android:layout_height="400dp"
+          android:layout_height="300dp"
           android:layout_marginHorizontal="40dp"
           android:layout_marginTop="10dp"
           android:src="@drawable/undraw_book_image" />
@@ -35,53 +35,92 @@
           android:layout_height="wrap_content"
           android:layout_gravity="center_horizontal"
           android:layout_marginStart="20dp"
-          android:layout_marginTop="400dp"
+          android:layout_marginTop="300dp"
           android:layout_marginEnd="20dp"
+          android:background="@drawable/rounded"
           android:orientation="horizontal"
-          android:padding="10dp">
+          android:paddingHorizontal="20dp"
+          android:paddingTop="20dp">
 
 
-        <FrameLayout
-            android:id="@+id/f1"
-            android:layout_width="150dp"
-            android:layout_height="80dp"
+        <RelativeLayout
+            android:layout_width="321dp"
+            android:layout_height="214dp"
             android:background="@drawable/button_background"
-            android:paddingVertical="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.565"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0">
 
+          <ImageView
+              android:id="@+id/imageViewLibraryLogo"
+              android:layout_width="167dp"
+              android:layout_height="36dp"
+              android:layout_alignParentTop="true"
+              android:layout_centerHorizontal="true"
+              android:layout_marginTop="20dp"
+              android:src="@drawable/trustt_logo" />
+
           <TextView
-              android:id="@+id/textView"
+              android:id="@+id/textViewMemberName"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_gravity="center_horizontal"
-              android:layout_margin="10dp"
+              android:layout_below="@id/imageViewLibraryLogo"
+              android:layout_centerHorizontal="true"
+              android:layout_marginTop="20dp"
               android:fontFamily="@font/inter"
-              android:text="Membership"
-              android:textAlignment="viewStart"
-              android:textSize="16sp"
+              android:text="Name: John Doe"
+              android:textSize="18sp"
               android:textStyle="bold" />
 
           <TextView
-              android:id="@+id/textView2"
+              android:id="@+id/textViewMemberID"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_gravity="center_horizontal"
-              android:layout_marginTop="28dp"
+              android:layout_below="@id/textViewMemberName"
+              android:layout_centerHorizontal="true"
+              android:layout_marginTop="10dp"
               android:fontFamily="@font/inter"
-              android:text="Card"
-              android:textSize="16sp"
+              android:text="ID: 123456"
+              android:textSize="18sp"
               android:textStyle="bold" />
-        </FrameLayout>
+
+          <TextView
+              android:id="@+id/textViewJoiningDate"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_below="@id/textViewMemberID"
+              android:layout_centerHorizontal="true"
+              android:layout_marginTop="10dp"
+              android:fontFamily="@font/inter"
+              android:text="Joining Date: 01/01/2024"
+              android:textSize="18sp"
+              android:textStyle="bold" />
+
+          <TextView
+              android:id="@+id/textViewCardID"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_below="@id/textViewJoiningDate"
+              android:layout_centerHorizontal="true"
+              android:layout_marginTop="10dp"
+              android:fontFamily="@font/inter"
+              android:text="Card ID: 78901234"
+              android:textSize="18sp"
+              android:textStyle="bold" />
+
+        </RelativeLayout>
+
 
         <FrameLayout
             android:id="@+id/f2"
             android:layout_width="150dp"
             android:layout_height="80dp"
+            android:layout_marginTop="230dp"
+
+            android:layout_marginBottom="20dp"
             android:background="@drawable/button_background"
             android:paddingVertical="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -115,32 +154,21 @@
               android:textStyle="bold" />
         </FrameLayout>
 
-
-      </androidx.constraintlayout.widget.ConstraintLayout>
-
-      <androidx.constraintlayout.widget.ConstraintLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_horizontal"
-          android:layout_marginStart="20dp"
-          android:layout_marginTop="550dp"
-          android:layout_marginEnd="20dp"
-          android:orientation="horizontal"
-          android:padding="10dp">
-
-
         <FrameLayout
 
             android:layout_width="150dp"
             android:layout_height="80dp"
+
+            android:layout_marginTop="230dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/button_background"
             android:paddingVertical="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.014"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintVertical_bias="1.0">
 
           <TextView
               android:id="@+id/textView3"
@@ -166,22 +194,73 @@
               android:textStyle="bold" />
         </FrameLayout>
 
-        <FrameLayout
-
-            android:layout_width="150dp"
-            android:layout_height="80dp"
-            android:background="@drawable/button_background"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
-
-        </FrameLayout>
-
 
       </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--      <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--          android:layout_width="match_parent"-->
+<!--          android:layout_height="wrap_content"-->
+<!--          android:layout_gravity="center_horizontal"-->
+<!--          android:layout_marginStart="20dp"-->
+<!--          android:layout_marginTop="550dp"-->
+<!--          android:layout_marginEnd="20dp"-->
+<!--          android:orientation="horizontal"-->
+<!--          android:padding="10dp">-->
+
+
+<!--&lt;!&ndash;        <FrameLayout&ndash;&gt;-->
+
+<!--&lt;!&ndash;            android:layout_width="150dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="80dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:background="@drawable/button_background"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:paddingVertical="10dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:layout_constraintEnd_toEndOf="parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:layout_constraintHorizontal_bias="0.0"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:layout_constraintStart_toStartOf="parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:layout_constraintTop_toTopOf="parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:layout_constraintVertical_bias="0.0">&ndash;&gt;-->
+
+<!--&lt;!&ndash;          <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;              android:id="@+id/textView3"&ndash;&gt;-->
+<!--&lt;!&ndash;              android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;              android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;              android:layout_gravity="center_horizontal"&ndash;&gt;-->
+<!--&lt;!&ndash;              android:layout_marginTop="10dp"&ndash;&gt;-->
+<!--&lt;!&ndash;              android:fontFamily="@font/inter"&ndash;&gt;-->
+<!--&lt;!&ndash;              android:text="Books Borrowed"&ndash;&gt;-->
+<!--&lt;!&ndash;              android:textSize="16sp"&ndash;&gt;-->
+<!--&lt;!&ndash;              android:textStyle="bold" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;          <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;              android:id="@+id/textView4"&ndash;&gt;-->
+<!--&lt;!&ndash;              android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;              android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;              android:layout_marginLeft="15dp"&ndash;&gt;-->
+<!--&lt;!&ndash;              android:layout_marginTop="28dp"&ndash;&gt;-->
+<!--&lt;!&ndash;              android:fontFamily="@font/inter"&ndash;&gt;-->
+<!--&lt;!&ndash;              android:gravity="left"&ndash;&gt;-->
+<!--&lt;!&ndash;              android:text="139"&ndash;&gt;-->
+<!--&lt;!&ndash;              android:textSize="16sp"&ndash;&gt;-->
+<!--&lt;!&ndash;              android:textStyle="bold" />&ndash;&gt;-->
+<!--&lt;!&ndash;        </FrameLayout>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <FrameLayout&ndash;&gt;-->
+
+<!--&lt;!&ndash;            android:layout_width="150dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="80dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:background="@drawable/button_background"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:layout_constraintEnd_toEndOf="parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:layout_constraintHorizontal_bias="1.0"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:layout_constraintStart_toStartOf="parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:layout_constraintTop_toTopOf="parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:layout_constraintVertical_bias="0.0">&ndash;&gt;-->
+
+<!--&lt;!&ndash;        </FrameLayout>&ndash;&gt;-->
+
+
+<!--      </androidx.constraintlayout.widget.ConstraintLayout>-->
     </FrameLayout>
   </androidx.core.widget.NestedScrollView>
 

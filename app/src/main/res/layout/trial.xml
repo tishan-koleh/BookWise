@@ -4,59 +4,67 @@
     android:layout_height="match_parent">
 
 
-
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_background">
 
         <ImageView
             android:id="@+id/imageViewLibraryLogo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/menu_icon"
+            android:layout_width="167dp"
+            android:layout_height="36dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:src="@drawable/trustt_logo" />
 
         <TextView
             android:id="@+id/textViewMemberName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name: John Doe"
-            android:textSize="18sp"
             android:layout_below="@id/imageViewLibraryLogo"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/inter"
+            android:text="Name: John Doe"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewMemberID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ID: 123456"
-            android:textSize="18sp"
             android:layout_below="@id/textViewMemberName"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/inter"
+            android:text="ID: 123456"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewJoiningDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Joining Date: 01/01/2024"
-            android:textSize="18sp"
             android:layout_below="@id/textViewMemberID"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/inter"
+            android:text="Joining Date: 01/01/2024"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewCardID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Card ID: 78901234"
-            android:textSize="18sp"
             android:layout_below="@id/textViewJoiningDate"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/inter"
+            android:text="Card ID: 78901234"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

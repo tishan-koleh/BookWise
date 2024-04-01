@@ -4,6 +4,6 @@
     <corners android:radius="20dp" /> <!-- Adjust the radius to control the roundness -->
     <solid android:color="#EAFAF1  " /> <!-- Background color -->
     <stroke
-        android:width="2dp" android:color="#1A8EA1" /> <!-- Border color -->
+        android:width="2dp" android:color="#4BB3F6" /> <!-- Border color -->
 </shape>
 

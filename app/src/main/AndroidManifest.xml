@@ -13,6 +13,9 @@
         android:theme="@style/Theme.BookWise"
         tools:targetApi="31">
         <activity
+            android:name=".Member.MemberActivity1"
+            android:exported="false" />
+        <activity
             android:name=".Member.MemberActivity"
             android:exported="false" />
         <activity
