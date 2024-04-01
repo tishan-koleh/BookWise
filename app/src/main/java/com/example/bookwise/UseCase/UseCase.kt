@@ -16,7 +16,7 @@ class UseCase {
 
      fun generateBooks(){
 
-        CoroutineScope(Dispatchers.Default).launch {
+        CoroutineScope(Dispatchers.IO).launch {
             val books = ArrayList<Book>()
             for (i in 1..50) {
                 val title = "Title $i"
