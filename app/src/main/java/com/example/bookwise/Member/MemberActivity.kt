@@ -21,6 +21,10 @@ import com.example.bookwise.MainActivity
 import com.example.bookwise.R
 import com.example.bookwise.databinding.ActivityMemberBinding
 import com.google.android.material.navigation.NavigationView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlin.concurrent.thread
 
 class MemberActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMemberBinding
@@ -57,9 +61,11 @@ class MemberActivity : AppCompatActivity() {
                     findNavController(R.id.fragmentContainerView_member).navigate(R.id.homeFragment)
                 }
                 R.id.books ->{
+
                     findNavController(R.id.fragmentContainerView_member).navigate(R.id.booksFragment)
                 }
                 R.id.return_books ->{
+
                     findNavController(R.id.fragmentContainerView_member).navigate(R.id.returnFragment)
                 }
                 R.id.fine ->{
@@ -107,5 +113,12 @@ class MemberActivity : AppCompatActivity() {
         }
         val alertDialog: AlertDialog = builder.create()
         alertDialog.show()
+    }
+
+
+    fun close(){
+        CoroutineScope(Dispatchers.Main).launch {
+            binding.main.close()
+        }
     }
 }
