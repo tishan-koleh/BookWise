@@ -154,7 +154,7 @@
               android:textStyle="bold" />
 
           <TextView
-              android:id="@+id/textView4"
+              android:id="@+id/books_available_tv"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginLeft="15dp"
@@ -179,12 +179,10 @@
             android:paddingVertical="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/frameLayout2"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0">
 
           <TextView
-              android:id="@+id/textView3"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_gravity="center_horizontal"
@@ -195,7 +193,7 @@
               android:textStyle="bold" />
 
           <TextView
-              android:id="@+id/textView4"
+              android:id="@+id/books_borrower_tv"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginLeft="15dp"
