@@ -3,6 +3,8 @@ package com.example.bookwise.Member
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -56,26 +58,26 @@ class MemberActivity : AppCompatActivity() {
         binding.navigationView.setNavigationItemSelectedListener {
             it.isChecked = true
             binding.main.close()
-            when(it.itemId){
-                R.id.homeOption->{
-                    findNavController(R.id.fragmentContainerView_member).navigate(R.id.homeFragment)
+            Handler(Looper.myLooper()!!).postDelayed({
+                when(it.itemId){
+                    R.id.homeOption->{
+                        findNavController(R.id.fragmentContainerView_member).navigate(R.id.homeFragment)
+                    }
+                    R.id.books ->{
+                        findNavController(R.id.fragmentContainerView_member).navigate(R.id.booksFragment)
+                    }
+                    R.id.return_books ->{
+                        findNavController(R.id.fragmentContainerView_member).navigate(R.id.returnFragment)
+                    }
+                    R.id.fine ->{
+                        findNavController(R.id.fragmentContainerView_member).navigate(R.id.fineFragment)
+                    }
+                    R.id.logout->{
+                        startActivity(Intent(this,MainActivity::class.java))
+                    }
                 }
-                R.id.books ->{
-
-                    findNavController(R.id.fragmentContainerView_member).navigate(R.id.booksFragment)
-                }
-                R.id.return_books ->{
-
-                    findNavController(R.id.fragmentContainerView_member).navigate(R.id.returnFragment)
-                }
-                R.id.fine ->{
-                    findNavController(R.id.fragmentContainerView_member).navigate(R.id.fineFragment)
-                }
-                R.id.logout->{
-                    startActivity(Intent(this,MainActivity::class.java))
-                }
-            }
-            return@setNavigationItemSelectedListener true
+            },200)
+             return@setNavigationItemSelectedListener true
         }
     }
 

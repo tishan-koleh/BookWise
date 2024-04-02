@@ -1,33 +1,34 @@
 package com.example.bookwise.UseCase
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.bookwise.Data.Book
+import com.example.bookwise.Data.Book.BookList
+import com.example.bookwise.Retrofit.ApiService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import okhttp3.Response
+import org.jetbrains.annotations.Async
 
-class UseCase {
+class UseCase(private val apiService: ApiService) {
 
-    private val bookList = MutableLiveData<List<Book>>()
-    val books
+    private val bookList = MutableLiveData<BookList>()
+    val books:LiveData<BookList>
         get() = bookList
 
 
 
-     fun generateBooks(){
+     suspend fun generateBooks(){
 
-        CoroutineScope(Dispatchers.IO).launch {
-            val books = ArrayList<Book>()
-            for (i in 1..50) {
-                val title = "Title $i"
-                val author = "Author $i"
-                val category = "Category $i"
-                val quantity = (1..20).random() // Random quantity between 1 and 20
-                books.add(Book(title, author, category, quantity))
-
-            }
-            bookList.postValue(books)
-        }
+         CoroutineScope(Dispatchers.IO).launch {
+             val response = apiService.getBookList()
+             val body = response.body()
+             if(body != null){
+                 bookList.postValue(body!!)
+             }
+         }
 
     }
 

@@ -1,21 +1,27 @@
 package com.example.bookwise
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.liveData
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.bookwise.Data.Book
-import com.example.bookwise.Member.MemberActivity
+import com.example.bookwise.Data.Book.BookList
 import com.example.bookwise.RecyclerView.ProgrammingAdapter
+import com.example.bookwise.Retrofit.ApiService
+import com.example.bookwise.Retrofit.RetrofitHepler
 import com.example.bookwise.UseCase.UseCase
 import com.example.bookwise.ViewModels.MainVIewModelFactory
 import com.example.bookwise.ViewModels.MainViewModel
 import com.example.bookwise.databinding.FragmentBooksBinding
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -45,24 +51,28 @@ class BooksFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
+
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_books, container, false)
-        val useCase = UseCase()
-        val factory = MainVIewModelFactory(useCase)
+        val retrofitService  = RetrofitHepler.getInstance().create(ApiService::class.java)
+        val factory = MainVIewModelFactory(retrofitService)
         viewModel = ViewModelProvider(this,factory).get(MainViewModel::class.java)
-        viewModel.getBookList()
 
         showProgressBar()
 
-        viewModel.books.observe(viewLifecycleOwner, Observer {
+        runBlocking {
+            viewModel.getBookList()
+        }
+
+        viewModel.book.observe(viewLifecycleOwner, Observer {
             val recyclerView = binding.recyclerviewBooks
             val adapter = ProgrammingAdapter()
             adapter.submitList(it)
-
-            recyclerView.layoutManager = LinearLayoutManager(requireContext())
-            recyclerView.setHasFixedSize(true)
             recyclerView.adapter = adapter
+            recyclerView.layoutManager = LinearLayoutManager(requireContext())
             hideProgressBar()
         })
+
 
         return binding.root
     }
