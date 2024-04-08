@@ -30,7 +30,7 @@ class AdminActivity : AdminBaseActivity() {
 
                 }
                 R.id.fine_admin->{
-                    findNavController(R.id.admin_nav_host_fragment).navigate(R.id.fineAdminFragment)
+                    findNavController(R.id.admin_nav_host_fragment).navigate(R.id.adminAddBooksFragment)
                 }
             }
             return@setOnNavigationItemSelectedListener true
