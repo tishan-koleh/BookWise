@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.material.navigation.NavigationView
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -25,6 +26,11 @@ class FineFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+//        val activity = requireActivity()
+//        val navigationView = activity.findViewById<NavigationView>(R.id.main)
+//        val finekOption = navigationView.menu.findItem(R.id.fine)
+//        finekOption.isChecked = true
     }
 
     override fun onCreateView(

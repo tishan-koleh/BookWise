@@ -27,6 +27,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.concurrent.thread
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 
 class MemberActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMemberBinding
@@ -47,12 +49,32 @@ class MemberActivity : AppCompatActivity() {
         }
 
 
+//        val menu = binding.navigationView.menu
+//        if(supportFragmentManager.isCurrentFragment(R.id.homeFragment)){
+//            menu.findItem(R.id.homeOption).isChecked = true
+//        }
+//        else if (supportFragmentManager.isCurrentFragment(R.id.booksFragment)){
+//            menu.findItem(R.id.books).isChecked = true
+//        }
+//        else if(supportFragmentManager.isCurrentFragment(R.id.returnFragment)){
+//            menu.findItem(R.id.return_books).isChecked = true
+//        }
+//        else{
+//            menu.findItem(R.id.fine).isChecked = true
+//        }
+
+
+
+
+
+
+
         drawerLayout = binding.main
 
-        //The Default Screen Is home Screen So selecting option Home By default
-        val menu = binding.navigationView.menu
-        val menuItem = menu.findItem(R.id.homeOption)
-        menuItem.isChecked = true
+//        //The Default Screen Is home Screen So selecting option Home By default
+//       // val menu = binding.navigationView.menu
+//        val menuItem = menu.findItem(R.id.homeOption)
+//        menuItem.isChecked = true
 
         // Select Items To perform Desired Actions
         binding.navigationView.setNavigationItemSelectedListener {
@@ -122,5 +144,10 @@ class MemberActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.Main).launch {
             binding.main.close()
         }
+    }
+
+    fun FragmentManager.isCurrentFragment(fragmentId: Int): Boolean {
+        val currentFragment = findFragmentById(fragmentId)
+        return currentFragment != null && currentFragment.isVisible
     }
 }

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.material.navigation.NavigationView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,6 +28,11 @@ class ReturnFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+//        val activity = requireActivity()
+//        val navigationView = activity.findViewById<NavigationView>(R.id.main)
+//        val returnOption = navigationView.menu.findItem(R.id.return_books)
+//        returnOption.isChecked = true
     }
 
     override fun onCreateView(

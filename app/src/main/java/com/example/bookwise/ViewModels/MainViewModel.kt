@@ -13,17 +13,47 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(private val apiService: ApiService):ViewModel() {
 
+
+    //Show Books to the Member
+
     private val bookLiveData = MutableLiveData<BookList?>()
     val book:LiveData<BookList?>
         get() = bookLiveData
 
 
-    suspend fun getBookList(){
-        val response = apiService.getBookList()
-        val body = response.body()
-        if(body != null){
-            bookLiveData.postValue(body)
+    private val loadingLiveData = MutableLiveData<Boolean>()
+    val isLoading:LiveData<Boolean>
+        get() = loadingLiveData
+
+
+    private val errorLiveData = MutableLiveData<String>()
+    val error :LiveData<String>
+        get() = errorLiveData
+
+
+     fun getBookList(){
+        viewModelScope.launch {
+            loadingLiveData.postValue(true)
+            try {
+                val response = apiService.getBookList()
+                if(response.isSuccessful){
+                    val body = response.body()
+                    bookLiveData.postValue(body)
+                }
+                else{
+                    errorLiveData.postValue("Error ${response.errorBody()}")
+                }
+            }
+            catch (e:Exception){
+                errorLiveData.postValue("Error ${e.message}")
+            }
+            finally {
+                loadingLiveData.postValue(false)
+            }
         }
     }
+
+
+    //Show Books to the Member
 
 }
