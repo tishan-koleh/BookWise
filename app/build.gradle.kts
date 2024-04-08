@@ -7,6 +7,7 @@ plugins {
 android {
     buildFeatures{
         dataBinding = true
+        viewBinding = true
     }
     namespace = "com.example.bookwise"
     compileSdk = 34
@@ -48,6 +49,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

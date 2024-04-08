@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/admin_nav_graph"
+    app:startDestination="@id/homeAdminFragment">
+
+    <fragment
+        android:id="@+id/booksAdminFragment"
+        android:name="com.example.bookwise.BooksAdminFragment"
+        android:label="fragment_books_admin"
+        tools:layout="@layout/fragment_books_admin" />
+    <fragment
+        android:id="@+id/membershipAdminFragment"
+        android:name="com.example.bookwise.MembershipAdminFragment"
+        android:label="fragment_membership_admin"
+        tools:layout="@layout/fragment_membership_admin" />
+    <fragment
+        android:id="@+id/fineAdminFragment"
+        android:name="com.example.bookwise.FineAdminFragment"
+        android:label="fragment_fine_admin"
+        tools:layout="@layout/fragment_fine_admin" />
+    <fragment
+        android:id="@+id/homeAdminFragment"
+        android:name="com.example.bookwise.HomeAdminFragment"
+        android:label="fragment_home_admin"
+        tools:layout="@layout/fragment_home_admin" />
+</navigation>
