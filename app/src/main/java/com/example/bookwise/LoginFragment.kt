@@ -75,6 +75,8 @@ class LoginFragment : Fragment() {
 
 
 
+
+
         viewModel.userLoginData.observe(viewLifecycleOwner, Observer {
             if(it.sucess == true) {
                 startActivity(Intent(this@LoginFragment.activity, MemberActivity1::class.java))
