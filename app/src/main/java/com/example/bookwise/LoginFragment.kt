@@ -77,23 +77,26 @@ class LoginFragment : Fragment() {
             val email = binding.emailInputTextField.text.toString()
             val password = binding.passwordInputTextField.text.toString()
 
-            var ans = true
-            ans = validate(email,"email") && validate(password,"password")
+            if (email.lowercase().trim() == "admin" && password.lowercase().trim() == "admin") {
+                Handler(Looper.myLooper()!!).postDelayed({
+                    startActivity(Intent(requireActivity(), AdminActivity::class.java))
+                    binding.progressBar.visibility = View.GONE
+                }, 1000)
+                binding.progressBar.visibility = View.VISIBLE
+            }else{
+                var ans = true
+                ans = validate(email,"email") && validate(password,"password")
 
-            if(ans == true) {
-                binding.wrongCredentialsTextView.text = ""
-                if (email.lowercase().trim() == "admin" && password.lowercase().trim() == "admin") {
-                    Handler(Looper.myLooper()!!).postDelayed({
-                        startActivity(Intent(requireActivity(), AdminActivity::class.java))
-                        binding.progressBar.visibility = View.GONE
-                    }, 1000)
-                    binding.progressBar.visibility = View.VISIBLE
+                if(ans == true) {
+                    binding.wrongCredentialsTextView.text = ""
 
-                } else {
                     val login = Login(email, password)
                     viewModel.userLogin(login)
+
                 }
             }
+
+
         }
 
         viewModel.loadingLoginData.observe(viewLifecycleOwner, Observer {
