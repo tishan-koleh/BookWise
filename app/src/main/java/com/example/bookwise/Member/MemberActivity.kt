@@ -48,33 +48,8 @@ class MemberActivity : AppCompatActivity() {
             binding.main.open()
         }
 
-
-//        val menu = binding.navigationView.menu
-//        if(supportFragmentManager.isCurrentFragment(R.id.homeFragment)){
-//            menu.findItem(R.id.homeOption).isChecked = true
-//        }
-//        else if (supportFragmentManager.isCurrentFragment(R.id.booksFragment)){
-//            menu.findItem(R.id.books).isChecked = true
-//        }
-//        else if(supportFragmentManager.isCurrentFragment(R.id.returnFragment)){
-//            menu.findItem(R.id.return_books).isChecked = true
-//        }
-//        else{
-//            menu.findItem(R.id.fine).isChecked = true
-//        }
-
-
-
-
-
-
-
         drawerLayout = binding.main
 
-//        //The Default Screen Is home Screen So selecting option Home By default
-//       // val menu = binding.navigationView.menu
-//        val menuItem = menu.findItem(R.id.homeOption)
-//        menuItem.isChecked = true
 
         // Select Items To perform Desired Actions
         binding.navigationView.setNavigationItemSelectedListener {
@@ -103,6 +78,7 @@ class MemberActivity : AppCompatActivity() {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
 
         //Close the drawer if open else navigate back to home else perform default back Action
