@@ -43,15 +43,15 @@ class LoginFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_login, container, false)
 
         //New User Registration
-        binding.newUserTv.setOnClickListener{
+        binding.newUserButton.setOnClickListener{
             findNavController().navigate(R.id.action_loginFragment_to_newUserFragment)
         }
 
         //Handling Forget Password
-        binding.forgotPasswordTv.setOnClickListener{
+        binding.forgotPasswordButton.setOnClickListener{
             findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
         }
-        binding.button.setOnClickListener {
+        binding.loginButton.setOnClickListener {
             startActivity(Intent(this@LoginFragment.activity,MemberActivity1::class.java))
         }
         return binding.root

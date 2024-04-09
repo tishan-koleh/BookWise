@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.MenuItem
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
+import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -76,30 +79,25 @@ class MemberActivity : AppCompatActivity() {
             },200)
              return@setNavigationItemSelectedListener true
         }
-    }
 
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-
-        //Close the drawer if open else navigate back to home else perform default back Action
-
-        val home = findNavController(R.id.fragmentContainerView_member).currentDestination?.id
-        if(binding.main.isDrawerOpen(GravityCompat.START)){
-            binding.main.close()
-        } else if( home != R.id.homeFragment){
-            findNavController(R.id.fragmentContainerView_member).navigate(R.id.homeFragment)
-            val menu = binding.navigationView.menu
-            val menuItem = menu.findItem(R.id.homeOption)
-            menuItem.isChecked = true
-        } else if(home == R.id.homeFragment){
-            showExitAlertDialog()
-        }
-        else{
-            super.onBackPressed()
+        onBackPressedDispatcher.addCallback {
+            val home = findNavController(R.id.fragmentContainerView_member).currentDestination?.id
+            if(binding.main.isDrawerOpen(GravityCompat.START)){
+                binding.main.close()
+            } else if(home != R.id.homeFragment){
+                findNavController(R.id.fragmentContainerView_member).navigate(R.id.homeFragment)
+                val menu = binding.navigationView.menu
+                val menuItem = menu.findItem(R.id.homeOption)
+                menuItem.isChecked = true
+            } else if(home == R.id.homeFragment){
+                showExitAlertDialog()
+            } else {
+                onBackPressedDispatcher.onBackPressed()
+            }
         }
     }
 
-    fun showExitAlertDialog() {
+    private fun showExitAlertDialog() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Exit")
         builder.setMessage("Are you sure you want to exit the app?")

@@ -1,7 +1,9 @@
 package com.example.bookwise.Member
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -28,5 +30,8 @@ class MemberActivity1 : AppCompatActivity() {
             startActivity(Intent(this,MemberActivity::class.java))
         }
 
+        onBackPressedDispatcher.addCallback {
+            finishAffinity()
+        }
     }
 }
