@@ -71,6 +71,7 @@ class NewUserFragment : Fragment() {
                     validateAll(adress,"adress") &&
                     validateAll(password,"password")
 
+
             if(ans){
                 val user = User(name,email,adress,contactNo,password)
                 viewModel.userRegistration(user)
@@ -82,12 +83,28 @@ class NewUserFragment : Fragment() {
 
         viewModel.userRegistraionData.observe(viewLifecycleOwner, Observer {
             Log.i("MYTAG",it.message)
-            startActivity(Intent(this@NewUserFragment.requireContext(),MemberActivity1::class.java))
+            startActivity(Intent(requireActivity(),MemberActivity1::class.java))
+        })
+
+        viewModel.isLoadingRegistration.observe(viewLifecycleOwner, Observer {
+            if (it==true){
+                binding.progressBar.visibility = View.VISIBLE
+            }
+            else{
+                binding.progressBar.visibility = View.GONE
+            }
         })
 
         viewModel.errorRegistration.observe(viewLifecycleOwner, Observer {
-            Log.i("MYTAG",it.toString())
-            Toast.makeText(this@NewUserFragment.requireContext(),"Some Error Occured",Toast.LENGTH_LONG).show()
+            Log.i("MYTAG","Response observer error")
+            AlertDialog.Builder(requireContext())
+                .setTitle("Network Error")
+                .setMessage("Please Try Again")
+                .setPositiveButton("OK") { dialog, _ ->
+                    binding.emailInputTextField.setText("")
+                    dialog.dismiss()
+                }
+                .show()
         })
 
 

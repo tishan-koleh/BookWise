@@ -74,12 +74,12 @@ class MainViewModel(private val apiService: ApiService):ViewModel() {
 
     private val loadingLiveDataRegistration = MutableLiveData<Boolean>()
     val isLoadingRegistration:LiveData<Boolean>
-        get() = loadingLiveData
+        get() = loadingLiveDataRegistration
 
 
     private val errorLiveDataRegistration = MutableLiveData<String>()
     val errorRegistration :LiveData<String>
-        get() = errorLiveData
+        get() = errorLiveDataRegistration
 
     fun userRegistration(user: User){
 
@@ -94,10 +94,12 @@ class MainViewModel(private val apiService: ApiService):ViewModel() {
                     userRegistrationLiveData.postValue(body!!)
                 }
                 else{
+                    Log.i("MYTAG","Response elseblock")
                     errorLiveDataRegistration.postValue("Error ${response.errorBody()}")
                 }
             }
             catch (e:Exception){
+                Log.i("MYTAG","Response catchblock")
                 errorLiveDataRegistration.postValue(e.message.toString())
             }
             finally {
