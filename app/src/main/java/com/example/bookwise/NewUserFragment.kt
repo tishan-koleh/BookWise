@@ -65,9 +65,12 @@ class NewUserFragment : Fragment() {
             val password = binding.passwordInputTextField.text.toString()
 
             var ans : Boolean = true
-            ans = validateEmpty(name,email,adress,contactNo,password) &&
-                    validateEmail(email) &&
-                    validatePassword(password,binding.retypePasswordInputTextField.text.toString())
+            ans = validateAll(name,"name") &&
+                    validateAll(email,"email") &&
+                    validateAll(contactNo,"contactno") &&
+                    validateAll(adress,"adress") &&
+                    validateAll(password,"password")
+
             if(ans){
                 val user = User(name,email,adress,contactNo,password)
                 viewModel.userRegistration(user)
@@ -75,13 +78,7 @@ class NewUserFragment : Fragment() {
 
         }
 
-//        viewModel.isLoadingRegistration.observe(viewLifecycleOwner, Observer {
-//            if(it == true){
-//                binding.progressBar.visibility = View.VISIBLE
-//            }else{
-//                binding.progressBar.visibility = View.VISIBLE
-//            }
-//        })
+
 
         viewModel.userRegistraionData.observe(viewLifecycleOwner, Observer {
             Log.i("MYTAG",it.message)
@@ -97,48 +94,103 @@ class NewUserFragment : Fragment() {
         return binding.root
     }
 
-    private fun validateEmpty(text:String,text1:String,text2:String,text3:String,text4:String):Boolean{
-        if(text == ""||text1 == ""||text2 == ""||text3 == ""||text4 == ""){
-            AlertDialog.Builder(requireContext())
-                .setTitle("Empty Fields")
-                .setMessage("Please Enter Some Value")
-                .setPositiveButton("OK") { dialog, _ ->
-                    binding.emailInputTextField.setText("")
-                    dialog.dismiss()
-                }
-                .show()
-            return false
-        }
 
-        return true
-    }
-    private fun validateEmail(text:String):Boolean{
-        if(Patterns.EMAIL_ADDRESS.matcher(text).matches()){
-            return true
-        }
-        AlertDialog.Builder(requireContext())
-            .setTitle("Wrong Email")
-            .setMessage("Please Enter a valid Email")
-            .setPositiveButton("OK") { dialog, _ ->
-                binding.emailInputTextField.setText("")
-                dialog.dismiss()
+    private fun validateAll(text1:String,type:String):Boolean{
+        var case = type
+        when(case.lowercase()){
+            "email"->{
+                if(text1 == ""){
+                    AlertDialog.Builder(requireContext())
+                        .setTitle("Empty Email")
+                        .setMessage("Please Enter a valid Email")
+                        .setPositiveButton("OK") { dialog, _ ->
+                            binding.emailInputTextField.setText("")
+                            dialog.dismiss()
+                        }
+                        .show()
+                    return false
+                }
+                else if(Patterns.EMAIL_ADDRESS.matcher(text1).matches()){
+                    return true
+                }
+                else {
+                    AlertDialog.Builder(requireContext())
+                        .setTitle("Wrong Email")
+                        .setMessage("Please Enter a valid Email")
+                        .setPositiveButton("OK") { dialog, _ ->
+                            binding.emailInputTextField.setText("")
+                            dialog.dismiss()
+                        }
+                        .show()
+                    return false
+                }
             }
-            .show()
-        return false
-    }
-
-    private fun validatePassword(text1:String,text2:String):Boolean{
-        if(text1!= text2){
-            AlertDialog.Builder(requireContext())
-                .setTitle("Password Mismatch")
-                .setMessage("Passwords do not match. Please check your password.")
-                .setPositiveButton("OK") { dialog, _ ->
-                    binding.passwordInputTextField.setText("")
-                    binding.retypePasswordInputTextField.setText("")
-                    dialog.dismiss()
+            "password"->{
+                if(text1 == ""){
+                    AlertDialog.Builder(requireContext())
+                        .setTitle("Empty Password")
+                        .setMessage("Please Enter a valid Password")
+                        .setPositiveButton("OK") { dialog, _ ->
+                            binding.passwordInputTextField.setText("")
+                            dialog.dismiss()
+                        }
+                        .show()
+                    return false
                 }
-                .show()
-            return false
+                else if(text1!= binding.retypePasswordInputTextField.text.toString()){
+                    AlertDialog.Builder(requireContext())
+                        .setTitle("Password Mismatch")
+                        .setMessage("Passwords do not match. Please check your password.")
+                        .setPositiveButton("OK") { dialog, _ ->
+                            binding.passwordInputTextField.setText("")
+                            binding.retypePasswordInputTextField.setText("")
+                            dialog.dismiss()
+                        }
+                        .show()
+                    return false
+                }
+
+
+            }
+            "name"->{
+                if(text1 == ""){
+                    AlertDialog.Builder(requireContext())
+                        .setTitle("Empty Name")
+                        .setMessage("Please Enter a valid Name")
+                        .setPositiveButton("OK") { dialog, _ ->
+                            binding.nameInputTextField.setText("")
+                            dialog.dismiss()
+                        }
+                        .show()
+                    return false
+                }
+            }
+            "contactno"->{
+                if(text1 == ""){
+                    AlertDialog.Builder(requireContext())
+                        .setTitle("Empty Contact")
+                        .setMessage("Please Enter a valid Contact")
+                        .setPositiveButton("OK") { dialog, _ ->
+                            binding.contactNoInputTextField.setText("")
+                            dialog.dismiss()
+                        }
+                        .show()
+                    return false
+                }
+            }
+            "adress"->{
+                if(text1 == ""){
+                    AlertDialog.Builder(requireContext())
+                        .setTitle("Empty Adress")
+                        .setMessage("Please Enter a valid Adress")
+                        .setPositiveButton("OK") { dialog, _ ->
+                            binding.adressInputTextField.setText("")
+                            dialog.dismiss()
+                        }
+                        .show()
+                    return false
+                }
+            }
         }
         return true
     }
