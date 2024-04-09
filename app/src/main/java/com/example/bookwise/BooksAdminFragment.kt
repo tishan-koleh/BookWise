@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.bookwise.Admin.AdminAddBook
 import com.example.bookwise.databinding.FragmentBooksAdminBinding
+import com.google.android.material.navigation.NavigationView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,6 +26,14 @@ class BooksAdminFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     lateinit var binding : FragmentBooksAdminBinding
+
+
+
+//    override fun onResume() {
+//        super.onResume()
+//        val navView = activity?.findViewById<NavigationView>(R.id.admin_nav_host_fragment)
+//        navView?.setCheckedItem(R.id.books_admin)
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

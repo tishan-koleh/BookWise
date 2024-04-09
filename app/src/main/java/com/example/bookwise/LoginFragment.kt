@@ -7,8 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.bookwise.Member.MemberActivity1
+import com.example.bookwise.PostRequestsDataClasses.Login
+import com.example.bookwise.Retrofit.ApiService
+import com.example.bookwise.Retrofit.RetrofitHepler
+import com.example.bookwise.ViewModels.MainVIewModelFactory
+import com.example.bookwise.ViewModels.MainViewModel
 import com.example.bookwise.databinding.FragmentLoginBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -23,6 +30,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
+    private lateinit var viewModel: MainViewModel
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -41,6 +49,9 @@ class LoginFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_login, container, false)
+        val retrofitService  = RetrofitHepler.getInstance().create(ApiService::class.java)
+        val factory = MainVIewModelFactory(retrofitService)
+        viewModel = ViewModelProvider(this,factory).get(MainViewModel::class.java)
 
         //New User Registration
         binding.newUserButton.setOnClickListener{
@@ -51,9 +62,33 @@ class LoginFragment : Fragment() {
         binding.forgotPasswordButton.setOnClickListener{
             findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
         }
+//        binding.loginButton.setOnClickListener {
+//            startActivity(Intent(this@LoginFragment.activity,MemberActivity1::class.java))
+//        }
+
         binding.loginButton.setOnClickListener {
-            startActivity(Intent(this@LoginFragment.activity,MemberActivity1::class.java))
+            val email = binding.emailInputTextField.text.toString()
+            val password = binding.passwordInputTextField.text.toString()
+            val login = Login(email,password)
+            viewModel.userLogin(login)
         }
+
+
+
+        viewModel.userLoginData.observe(viewLifecycleOwner, Observer {
+            if(it.sucess == true) {
+                startActivity(Intent(this@LoginFragment.activity, MemberActivity1::class.java))
+            }
+            else{
+                binding.wrongCredentialsTextView.text = "Wrong Credentials!"
+                binding.emailInputTextField.setText("")
+                binding.passwordInputTextField.setText("")
+
+            }
+        })
+
+
+
         return binding.root
     }
 

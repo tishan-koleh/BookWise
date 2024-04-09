@@ -6,14 +6,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.bookwise.Authentication.Registration.Login.LoginResponse
 import com.example.bookwise.Authentication.Registration.Registration
 import com.example.bookwise.Data.Book.BookList
 import com.example.bookwise.Data.Book.BookListItem
+import com.example.bookwise.PostRequestsDataClasses.Login
 import com.example.bookwise.PostRequestsDataClasses.User
 import com.example.bookwise.Retrofit.ApiService
 import com.example.bookwise.UseCase.UseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.math.log
 
 class MainViewModel(private val apiService: ApiService):ViewModel() {
 
@@ -105,5 +108,48 @@ class MainViewModel(private val apiService: ApiService):ViewModel() {
         }
     }
     //User Registration
+
+
+
+
+    //User Login
+    private val userLoginLiveData = MutableLiveData<LoginResponse>()
+    val userLoginData :LiveData<LoginResponse>
+        get() = userLoginLiveData
+
+
+    private val loadingLoginLiveData = MutableLiveData<Boolean>()
+    val loadingLoginData : LiveData<Boolean>
+        get() = loadingLoginLiveData
+
+
+    private val loginErrorMessageLiveData = MutableLiveData<String>()
+    val loginErrorMessageData : LiveData<String>
+        get() = loginErrorMessageLiveData
+
+
+    fun userLogin(login: Login){
+        Log.i("MYTAG","Inside userLogin Function")
+        viewModelScope.launch {
+            loadingLoginLiveData.postValue(true)
+            try {
+                val response = apiService.loginUser(login)
+                if (response.isSuccessful && response.body() != null){
+                    Log.i("MYTAG", response.body()!!.sucess.toString())
+                    val body = response.body()
+                    userLoginLiveData.postValue(body!!)
+                }
+                else{
+                    loginErrorMessageLiveData.postValue(response.errorBody().toString())
+                }
+            }catch (e:Exception){
+                loginErrorMessageLiveData.postValue(e.message.toString())
+            }
+            finally {
+                loadingLoginLiveData.postValue(false)
+            }
+        }
+    }
+    //User Login
 
 }
