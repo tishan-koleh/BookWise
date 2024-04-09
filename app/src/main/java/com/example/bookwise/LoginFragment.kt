@@ -2,14 +2,20 @@ package com.example.bookwise
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.bookwise.Admin.AdminActivity
 import com.example.bookwise.Member.MemberActivity1
 import com.example.bookwise.PostRequestsDataClasses.Login
 import com.example.bookwise.Retrofit.ApiService
@@ -17,6 +23,7 @@ import com.example.bookwise.Retrofit.RetrofitHepler
 import com.example.bookwise.ViewModels.MainVIewModelFactory
 import com.example.bookwise.ViewModels.MainViewModel
 import com.example.bookwise.databinding.FragmentLoginBinding
+import java.util.regex.Pattern
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -69,9 +76,41 @@ class LoginFragment : Fragment() {
         binding.loginButton.setOnClickListener {
             val email = binding.emailInputTextField.text.toString()
             val password = binding.passwordInputTextField.text.toString()
-            val login = Login(email,password)
-            viewModel.userLogin(login)
+
+            var ans = true
+            ans = validate(email,"email") && validate(password,"password")
+
+            if(ans == true) {
+                binding.wrongCredentialsTextView.text = ""
+                if (email.lowercase().trim() == "admin" && password.lowercase().trim() == "admin") {
+                    Handler(Looper.myLooper()!!).postDelayed({
+                        startActivity(Intent(requireActivity(), AdminActivity::class.java))
+                        binding.progressBar.visibility = View.GONE
+                    }, 1000)
+                    binding.progressBar.visibility = View.VISIBLE
+
+                } else {
+                    val login = Login(email, password)
+                    viewModel.userLogin(login)
+                }
+            }
         }
+
+        viewModel.loadingLoginData.observe(viewLifecycleOwner, Observer {
+            if (it == true){
+                binding.progressBar.visibility = View.VISIBLE
+
+            }
+            else{
+                binding.progressBar.visibility = View.GONE
+
+            }
+        })
+
+
+        viewModel.loginErrorMessageData.observe(viewLifecycleOwner, Observer {
+            binding.wrongCredentialsTextView.text = "Network Error!"
+        })
 
 
 
@@ -92,6 +131,31 @@ class LoginFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    private fun validate(text1:String,type:String):Boolean{
+        var case = type
+        when(case.lowercase()){
+            "email"->{
+                if(text1 == ""){
+                    binding.wrongCredentialsTextView.text = "Enter Email!"
+                    return false
+                }
+                if(!Patterns.EMAIL_ADDRESS.matcher(text1).matches()){
+                    binding.wrongCredentialsTextView.text = "Invalid Email!"
+                    return false
+                }
+
+            }
+            "password"->{
+                if(text1 == ""){
+                    binding.wrongCredentialsTextView.text = "Enter Password!"
+                    return false
+                }
+
+            }
+        }
+        return true
     }
 
     companion object {

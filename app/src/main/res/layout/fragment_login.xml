@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:background="#1A8EA1">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -20,14 +20,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="40dp"
-                android:src="@drawable/login" />
+                android:src="@drawable/login"
+                app:layout_constraintBottom_toTopOf="@+id/frameLayout5"
+                app:layout_constraintEnd_toStartOf="@+id/frameLayout5"
+                app:layout_constraintStart_toEndOf="@+id/frameLayout5"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
 
             <FrameLayout
+                android:visibility="visible"
+                android:id="@+id/frame_Layout5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rounded">
+                android:background="@drawable/rounded"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView3"
+                app:layout_constraintVertical_bias="0.5">
 
                 <TextView
                     android:id="@+id/textView5"
@@ -126,8 +138,15 @@
                     android:textColor="@color/design_default_color_error"
                     android:textSize="18sp"
                     android:textStyle="bold" />
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
             </FrameLayout>
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
 </layout>
