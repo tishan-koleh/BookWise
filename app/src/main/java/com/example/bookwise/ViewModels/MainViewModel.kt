@@ -12,6 +12,8 @@ import com.example.bookwise.Data.Book.BookList
 import com.example.bookwise.Data.Book.BookListItem
 import com.example.bookwise.PostRequestsDataClasses.Login
 import com.example.bookwise.PostRequestsDataClasses.User
+import com.example.bookwise.PutRequestDataClass.ResetResponse
+import com.example.bookwise.PutRequestDataClass.UserResetPassword
 import com.example.bookwise.Retrofit.ApiService
 import com.example.bookwise.UseCase.UseCase
 import kotlinx.coroutines.Dispatchers
@@ -153,5 +155,53 @@ class MainViewModel(private val apiService: ApiService):ViewModel() {
         }
     }
     //User Login
+
+
+
+    //Password Reset
+
+    private val resetPasswordLiveData = MutableLiveData<ResetResponse>()
+    val resetPasswordData : LiveData<ResetResponse>
+        get() = resetPasswordLiveData
+
+    private val resetPasswordLoadingLiveData = MutableLiveData<Boolean>()
+    val resetPasswordLoading : LiveData<Boolean>
+        get() = resetPasswordLoadingLiveData
+
+    private val resetPasswordErrorMessageLiveData = MutableLiveData<String>()
+    val resetPasswordErrorMessageData : LiveData<String>
+        get() = resetPasswordErrorMessageLiveData
+
+
+    fun resetPassword(email:String,userResetPassword: UserResetPassword){
+        resetPasswordLoadingLiveData.postValue(true)
+        viewModelScope.launch {
+            try {
+                val response = apiService.resetPassword(email,userResetPassword);
+                if(response.isSuccessful){
+                    if(response.body() == null){
+                        Log.i("MYTAG","Inside if body is null")
+                        resetPasswordErrorMessageLiveData.postValue("Invalid Email")
+                    }
+                    else {
+                        val body = response.body()
+                        resetPasswordLiveData.postValue(body!!)
+                    }
+                }
+                else if(!response.isSuccessful){
+                    Log.i("MYTAG","Inside Else outside")
+                    resetPasswordErrorMessageLiveData.postValue("Email Not Found, Please create an account!")
+                }
+            }
+            catch (e:Exception){
+                Log.i("MYTAG","Inside Catch")
+                resetPasswordErrorMessageLiveData.postValue("Network Error")
+            }
+            finally {
+                resetPasswordLoadingLiveData.postValue(false)
+            }
+        }
+    }
+    // Reset Password
 
 }
