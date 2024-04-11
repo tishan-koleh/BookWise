@@ -90,6 +90,7 @@ class HomeFragment : Fragment() {
 
         viewModel.cardDetails.observe(viewLifecycleOwner, Observer {
             Log.i("IN-OBSERVER",it.customer.name)
+            SharedPreferencesHelper.writeInt(Utils.card_id,it.id)
             binding.textViewMemberName.text = it.customer.user.name
             binding.memberId.text = "DT-"+it.customer.user.id.toString()
             binding.cardId.text = "CT-"+it.id.toString()

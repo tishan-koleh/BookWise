@@ -1,12 +1,14 @@
 package com.example.bookwise
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -76,14 +78,18 @@ class BooksFragment : Fragment() {
             viewModel.book.observe(viewLifecycleOwner, Observer {
 
                 adapter.submitList(it)
-                hideProgressBar()
             })
 
             viewModel.isLoading.observe(viewLifecycleOwner, Observer {
                 if (it) {
                     showProgressBar()
+                    binding.recyclerviewBooks.visibility = View.GONE
                 } else {
-                    hideProgressBar()
+                    Handler().postDelayed({
+                        hideProgressBar()
+                        binding.recyclerviewBooks.visibility = View.VISIBLE
+                    },1000)
+
                 }
             })
 
@@ -95,6 +101,21 @@ class BooksFragment : Fragment() {
                     "Some Error Occured",
                     Toast.LENGTH_LONG
                 ).show()
+            })
+
+            viewModel.alert.observe(viewLifecycleOwner, Observer {
+
+
+                    AlertDialog.Builder(requireContext())
+                        .setTitle("Issue")
+                        .setMessage("Book Issued")
+                        .setPositiveButton("OK") { dialog, _ ->
+                            viewModel.getBookList()
+                            dialog.dismiss()
+                        }
+                        .show()
+
+
             })
 
 

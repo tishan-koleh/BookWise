@@ -3,11 +3,14 @@ package com.example.bookwise.Retrofit
 import com.example.bookwise.Authentication.Registration.Login.LoginResponse
 import com.example.bookwise.Authentication.Registration.Registration
 import com.example.bookwise.Data.Book.BookList
-import com.example.bookwise.Retrofit.GetRequestDataClasses.CardDetails
 import com.example.bookwise.Retrofit.PostRequestsDataClasses.Login
 import com.example.bookwise.Retrofit.PostRequestsDataClasses.User
 import com.example.bookwise.Retrofit.PutRequestDataClass.ResetResponse
 import com.example.bookwise.Retrofit.PutRequestDataClass.UserResetPassword
+import com.example.bookwise.Retrofit.Transaction.BorrowBookDetails
+import com.example.bookwise.Retrofit.Transaction.ToCreateTransaction
+import com.example.bookwise.Retrofit.Transaction.TransactionCompleated
+import com.example.bookwise.Retrofit.Transaction.TransactionCreated
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -38,5 +41,13 @@ interface ApiService {
 
     @GET("cards/customer/{id}")
     suspend fun getCardDetails(@Path("id") id: Int): Response<com.example.bookwise.Retrofit.GetCardsByUserId.CardDetails>
+
+    @POST("/transaction")
+    suspend fun initiateTransaction(@Body toCreateTransaction: ToCreateTransaction):Response<TransactionCreated>
+
+
+    @POST("/transactionDetails")
+    suspend fun borrowBook(@Body borrowBookDetails: BorrowBookDetails): Response<TransactionCompleated>
+
 
 }

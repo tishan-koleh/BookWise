@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookwise.Data.Book.BookListItem
 import com.example.bookwise.R
+import com.example.bookwise.SharedPreferenceHelper.SharedPreferencesHelper
+import com.example.bookwise.Utils
 import com.example.bookwise.ViewModels.MainViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -34,10 +36,13 @@ class ProgrammingAdapter(private val mainViewModel: MainViewModel) : ListAdapter
                 authorName.text = item.author.name
                 categoryName.text = item.genre.name
                 quantity.text = item.quantity.toString()
+                if (item.quantity==0){
+                    button.isEnabled = false
+                }
             }
             button.setOnClickListener {
                 Log.i("BUTTON ACTION","Book Id-${item.id}")
-                mainViewModel.test()
+                mainViewModel.initiateTransaction(SharedPreferencesHelper.readInt(Utils.card_id,-1),item.id)
 
             }
         }

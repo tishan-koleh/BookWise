@@ -1,6 +1,7 @@
 package com.example.bookwise.ViewModels
 
-import android.provider.ContactsContract.CommonDataKinds.Email
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,17 +10,16 @@ import androidx.lifecycle.viewModelScope
 import com.example.bookwise.Authentication.Registration.Login.LoginResponse
 import com.example.bookwise.Authentication.Registration.Registration
 import com.example.bookwise.Data.Book.BookList
-import com.example.bookwise.Data.Book.BookListItem
 import com.example.bookwise.Retrofit.PostRequestsDataClasses.Login
 import com.example.bookwise.Retrofit.PostRequestsDataClasses.User
 import com.example.bookwise.Retrofit.PutRequestDataClass.ResetResponse
 import com.example.bookwise.Retrofit.PutRequestDataClass.UserResetPassword
 import com.example.bookwise.Retrofit.ApiService
-import com.example.bookwise.Retrofit.GetRequestDataClasses.CardDetails
-import com.example.bookwise.UseCase.UseCase
-import kotlinx.coroutines.Dispatchers
+import com.example.bookwise.Retrofit.Transaction.BorrowBookDetails
+import com.example.bookwise.Retrofit.Transaction.ToCreateTransaction
+import com.example.bookwise.SharedPreferenceHelper.SharedPreferencesHelper
+import com.example.bookwise.Utils
 import kotlinx.coroutines.launch
-import kotlin.math.log
 
 class MainViewModel(private val apiService: ApiService):ViewModel() {
 
@@ -58,7 +58,10 @@ class MainViewModel(private val apiService: ApiService):ViewModel() {
                 errorLiveData.postValue("Error ${e.message}")
             }
             finally {
-                loadingLiveData.postValue(false)
+
+                    loadingLiveData.postValue(false)
+
+
             }
         }
     }
@@ -254,5 +257,50 @@ class MainViewModel(private val apiService: ApiService):ViewModel() {
     fun test(){
         Log.i("FINALLY","Inside ViewModel")
     }
+
+    //Transaction
+    private var tID: Int? = 0
+    var transaction_id:Int? = null
+        get() = tID
+
+    fun initiateTransaction(card_id:Int,book_id:Int){
+        viewModelScope.launch {
+            try {
+                val response = apiService.initiateTransaction(ToCreateTransaction(card_id))
+                if(response.isSuccessful && response.body()!=null ){
+                    val body = response.body()
+                    tID = body?.id
+                    SharedPreferencesHelper.writeInt(Utils.transaction_id,body?.id!!)
+                    Log.i("TRANSACTION_ID",body?.id.toString())
+                    borrowBook(book_id,tID!!)
+
+                }
+            }
+            catch (e:Exception){
+                Log.i("EXCEPTION",e.message.toString())
+            }
+        }
+    }
+    private val alertLiveData =MutableLiveData<Boolean>()
+    val alert:LiveData<Boolean>
+        get() = alertLiveData
+    fun borrowBook(bookId: Int,transaction_id:Int){
+
+            viewModelScope.launch {
+                Log.i("TRANSACTION_ID IS_INCREMENED?","${transaction_id} and ${bookId}")
+                val borrowBookDetails = BorrowBookDetails(bookId,transaction_id)
+                val response = apiService.borrowBook(borrowBookDetails)
+                if (!response.isSuccessful) {
+                    response.errorBody()?.let {
+                        Log.i("Error Body", it.string())
+                    }
+                }
+                alertLiveData.postValue(false)
+            }
+
+
+    }
+
+
 
 }
