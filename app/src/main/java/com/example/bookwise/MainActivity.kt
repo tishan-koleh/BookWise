@@ -14,6 +14,7 @@ import com.example.bookwise.Member.MemberActivity
 import com.example.bookwise.Member.MemberActivity1
 import com.example.bookwise.Retrofit.ApiService
 import com.example.bookwise.Retrofit.RetrofitHepler
+import com.example.bookwise.SharedPreferenceHelper.SharedPreferencesHelper
 import com.example.bookwise.UseCase.UseCase
 import com.example.bookwise.ViewModels.MainVIewModelFactory
 import com.example.bookwise.ViewModels.MainViewModel
@@ -27,6 +28,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if(SharedPreferencesHelper.readBoolean(Utils.is_logged_in,false) == true){
+            startActivity(Intent(this,MemberActivity1::class.java))
+            finish()
+        }
         enableEdgeToEdge()
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -47,4 +52,5 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
+
 }

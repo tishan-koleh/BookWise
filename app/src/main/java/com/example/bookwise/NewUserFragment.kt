@@ -17,6 +17,7 @@ import com.example.bookwise.Member.MemberActivity1
 import com.example.bookwise.Retrofit.PostRequestsDataClasses.User
 import com.example.bookwise.Retrofit.ApiService
 import com.example.bookwise.Retrofit.RetrofitHepler
+import com.example.bookwise.SharedPreferenceHelper.SharedPreferencesHelper
 import com.example.bookwise.ViewModels.MainVIewModelFactory
 import com.example.bookwise.ViewModels.MainViewModel
 import com.example.bookwise.databinding.FragmentNewUserBinding
@@ -52,11 +53,14 @@ class NewUserFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_new_user, container, false)
-
         val retrofitService  = RetrofitHepler.getInstance().create(ApiService::class.java)
         val factory = MainVIewModelFactory(retrofitService)
         viewModel = ViewModelProvider(this,factory).get(MainViewModel::class.java)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.registerButton.setOnClickListener {
             val name = binding.nameInputTextField.text.toString()
             val email = binding.emailInputTextField.text.toString()
@@ -83,6 +87,8 @@ class NewUserFragment : Fragment() {
 
         viewModel.userRegistraionData.observe(viewLifecycleOwner, Observer {
             Log.i("MYTAG",it.message)
+            SharedPreferencesHelper.writeInt(Utils.user_id,it.user.id)
+            SharedPreferencesHelper.writeBoolean(Utils.is_logged_in,true)
             startActivity(Intent(requireActivity(),MemberActivity1::class.java))
         })
 
@@ -106,9 +112,6 @@ class NewUserFragment : Fragment() {
                 }
                 .show()
         })
-
-
-        return binding.root
     }
 
 

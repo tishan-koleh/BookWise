@@ -63,6 +63,11 @@ class LoginFragment : Fragment() {
 
 
 
+         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         //New User Registration
         binding.newUserButton.setOnClickListener{
             findNavController().navigate(R.id.action_loginFragment_to_newUserFragment)
@@ -125,6 +130,7 @@ class LoginFragment : Fragment() {
         viewModel.userLoginData.observe(viewLifecycleOwner, Observer {
             if(it.sucess == true) {
                 SharedPreferencesHelper.writeInt(Utils.user_id,it.User.id)
+                SharedPreferencesHelper.writeBoolean(Utils.is_logged_in,true)
                 startActivity(Intent(this@LoginFragment.activity, MemberActivity1::class.java))
             }
             else{
@@ -137,7 +143,7 @@ class LoginFragment : Fragment() {
 
 
 
-        return binding.root
+
     }
 
     private fun validate(text1:String,type:String):Boolean{

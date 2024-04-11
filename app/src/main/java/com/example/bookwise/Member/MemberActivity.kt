@@ -32,6 +32,8 @@ import kotlinx.coroutines.launch
 import kotlin.concurrent.thread
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.example.bookwise.SharedPreferenceHelper.SharedPreferencesHelper
+import com.example.bookwise.Utils
 
 class MemberActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMemberBinding
@@ -73,6 +75,8 @@ class MemberActivity : AppCompatActivity() {
                         findNavController(R.id.fragmentContainerView_member).navigate(R.id.fineFragment)
                     }
                     R.id.logout->{
+                        SharedPreferencesHelper.writeInt(Utils.user_id,-1)
+                        SharedPreferencesHelper.writeBoolean(Utils.is_logged_in,false)
                         startActivity(Intent(this,MainActivity::class.java))
                     }
                 }
