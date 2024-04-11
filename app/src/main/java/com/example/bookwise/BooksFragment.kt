@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.liveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,7 +23,9 @@ import com.example.bookwise.UseCase.UseCase
 import com.example.bookwise.ViewModels.MainVIewModelFactory
 import com.example.bookwise.ViewModels.MainViewModel
 import com.example.bookwise.databinding.FragmentBooksBinding
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,6 +40,7 @@ private const val ARG_PARAM2 = "param2"
 class BooksFragment : Fragment() {
     private lateinit var binding : FragmentBooksBinding
     private lateinit var viewModel: MainViewModel
+    private lateinit var adapter:ProgrammingAdapter
     private var param1: String? = null
     private var param2: String? = null
 
@@ -62,29 +66,42 @@ class BooksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getBookList()
 
-        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
-            if(it){
-                showProgressBar()
-            }
-            else{
-                hideProgressBar()
-            }
-        })
-
-        viewModel.error.observe(viewLifecycleOwner, Observer {
-            findNavController().navigate(R.id.homeFragment)
-            Toast.makeText(this@BooksFragment.requireContext(),"Some Error Occured",Toast.LENGTH_LONG).show()
-        })
-
-        viewModel.book.observe(viewLifecycleOwner, Observer {
             val recyclerView = binding.recyclerviewBooks
-            val adapter = ProgrammingAdapter()
-            adapter.submitList(it)
+            adapter = ProgrammingAdapter()
+            adapter.submitList(listOf())
             recyclerView.adapter = adapter
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        })
+            viewModel.getBookList()
+            viewModel.book.observe(viewLifecycleOwner, Observer {
+
+                adapter.submitList(it)
+                hideProgressBar()
+            })
+
+
+
+
+            viewModel.isLoading.observe(viewLifecycleOwner, Observer {
+                if (it) {
+                    showProgressBar()
+                } else {
+                    hideProgressBar()
+                }
+            })
+
+
+            viewModel.error.observe(viewLifecycleOwner, Observer {
+                findNavController().navigate(R.id.homeFragment)
+                Toast.makeText(
+                    this@BooksFragment.requireContext(),
+                    "Some Error Occured",
+                    Toast.LENGTH_LONG
+                ).show()
+            })
+
+
+
 
     }
 

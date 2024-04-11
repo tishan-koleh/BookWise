@@ -1,8 +1,10 @@
 package com.example.bookwise.RecyclerView
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -21,6 +23,9 @@ class ProgrammingAdapter : ListAdapter<BookListItem, ProgrammingAdapter.Programm
         private val authorName: TextView = view.findViewById(R.id.author_name)
         private val categoryName: TextView = view.findViewById(R.id.category_name)
         private val quantity: TextView = view.findViewById(R.id.quantity)
+        private val button :Button = view.findViewById(R.id.borrow_button)
+
+
 
         fun bind(item: BookListItem) {
             CoroutineScope(Dispatchers.Main).launch {
@@ -29,7 +34,13 @@ class ProgrammingAdapter : ListAdapter<BookListItem, ProgrammingAdapter.Programm
                 categoryName.text = item.genre.name
                 quantity.text = item.quantity.toString()
             }
+            button.setOnClickListener {
+                Log.i("BUTTON ACTION","Book Id-${item.id}")
+            }
         }
+
+
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProgrammingViewHolder {
