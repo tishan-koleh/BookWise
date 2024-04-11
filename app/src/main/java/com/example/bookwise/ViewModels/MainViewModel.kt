@@ -251,5 +251,8 @@ class MainViewModel(private val apiService: ApiService):ViewModel() {
 
     //Card Details
 
+    fun test(){
+        Log.i("FINALLY","Inside ViewModel")
+    }
 
 }

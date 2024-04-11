@@ -68,7 +68,7 @@ class BooksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
             val recyclerView = binding.recyclerviewBooks
-            adapter = ProgrammingAdapter()
+            adapter = ProgrammingAdapter(viewModel)
             adapter.submitList(listOf())
             recyclerView.adapter = adapter
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -78,9 +78,6 @@ class BooksFragment : Fragment() {
                 adapter.submitList(it)
                 hideProgressBar()
             })
-
-
-
 
             viewModel.isLoading.observe(viewLifecycleOwner, Observer {
                 if (it) {

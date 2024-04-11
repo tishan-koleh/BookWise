@@ -11,13 +11,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookwise.Data.Book.BookListItem
 import com.example.bookwise.R
+import com.example.bookwise.ViewModels.MainViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ProgrammingAdapter : ListAdapter<BookListItem, ProgrammingAdapter.ProgrammingViewHolder>(diffUtil()) {
+class ProgrammingAdapter(private val mainViewModel: MainViewModel) : ListAdapter<BookListItem, ProgrammingAdapter.ProgrammingViewHolder>(diffUtil()) {
 
-    class ProgrammingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ProgrammingViewHolder(view: View,mainViewModel: MainViewModel) : RecyclerView.ViewHolder(view) {
 
         private val bookName: TextView = view.findViewById(R.id.book_name)
         private val authorName: TextView = view.findViewById(R.id.author_name)
@@ -27,7 +28,7 @@ class ProgrammingAdapter : ListAdapter<BookListItem, ProgrammingAdapter.Programm
 
 
 
-        fun bind(item: BookListItem) {
+        fun bind(item: BookListItem,mainViewModel: MainViewModel) {
             CoroutineScope(Dispatchers.Main).launch {
                 bookName.text = item.title
                 authorName.text = item.author.name
@@ -36,6 +37,8 @@ class ProgrammingAdapter : ListAdapter<BookListItem, ProgrammingAdapter.Programm
             }
             button.setOnClickListener {
                 Log.i("BUTTON ACTION","Book Id-${item.id}")
+                mainViewModel.test()
+
             }
         }
 
@@ -45,12 +48,12 @@ class ProgrammingAdapter : ListAdapter<BookListItem, ProgrammingAdapter.Programm
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProgrammingViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.book_list_items, parent, false)
-        return ProgrammingViewHolder(view)
+        return ProgrammingViewHolder(view,mainViewModel)
     }
 
     override fun onBindViewHolder(holder: ProgrammingViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item,mainViewModel)
     }
 
     companion object {
