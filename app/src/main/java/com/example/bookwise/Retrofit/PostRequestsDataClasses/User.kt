@@ -1,4 +1,4 @@
-package com.example.bookwise.PostRequestsDataClasses
+package com.example.bookwise.Retrofit.PostRequestsDataClasses
 
 
 
@@ -7,5 +7,6 @@ data class User(
     val email: String,
     val address: String,
     val contact_no: String,
-    val password: String
+    val password: String,
+    val role:Int
 )

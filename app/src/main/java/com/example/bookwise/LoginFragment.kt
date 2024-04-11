@@ -1,29 +1,30 @@
 package com.example.bookwise
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.util.Patterns
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.bookwise.Admin.AdminActivity
 import com.example.bookwise.Member.MemberActivity1
-import com.example.bookwise.PostRequestsDataClasses.Login
+import com.example.bookwise.Retrofit.PostRequestsDataClasses.Login
 import com.example.bookwise.Retrofit.ApiService
 import com.example.bookwise.Retrofit.RetrofitHepler
+import com.example.bookwise.SharedPreferenceHelper.SharedPreferencesHelper
 import com.example.bookwise.ViewModels.MainVIewModelFactory
 import com.example.bookwise.ViewModels.MainViewModel
 import com.example.bookwise.databinding.FragmentLoginBinding
-import java.util.regex.Pattern
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +60,8 @@ class LoginFragment : Fragment() {
         val retrofitService  = RetrofitHepler.getInstance().create(ApiService::class.java)
         val factory = MainVIewModelFactory(retrofitService)
         viewModel = ViewModelProvider(this,factory).get(MainViewModel::class.java)
+
+
 
         //New User Registration
         binding.newUserButton.setOnClickListener{
@@ -121,6 +124,7 @@ class LoginFragment : Fragment() {
 
         viewModel.userLoginData.observe(viewLifecycleOwner, Observer {
             if(it.sucess == true) {
+                SharedPreferencesHelper.writeInt(Utils.user_id,it.User.id)
                 startActivity(Intent(this@LoginFragment.activity, MemberActivity1::class.java))
             }
             else{

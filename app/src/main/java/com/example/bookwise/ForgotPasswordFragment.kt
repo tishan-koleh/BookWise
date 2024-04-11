@@ -12,7 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.bookwise.PutRequestDataClass.UserResetPassword
+import com.example.bookwise.Retrofit.PutRequestDataClass.UserResetPassword
 import com.example.bookwise.Retrofit.ApiService
 import com.example.bookwise.Retrofit.RetrofitHepler
 import com.example.bookwise.ViewModels.MainVIewModelFactory

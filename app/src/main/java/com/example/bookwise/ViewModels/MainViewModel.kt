@@ -10,11 +10,12 @@ import com.example.bookwise.Authentication.Registration.Login.LoginResponse
 import com.example.bookwise.Authentication.Registration.Registration
 import com.example.bookwise.Data.Book.BookList
 import com.example.bookwise.Data.Book.BookListItem
-import com.example.bookwise.PostRequestsDataClasses.Login
-import com.example.bookwise.PostRequestsDataClasses.User
-import com.example.bookwise.PutRequestDataClass.ResetResponse
-import com.example.bookwise.PutRequestDataClass.UserResetPassword
+import com.example.bookwise.Retrofit.PostRequestsDataClasses.Login
+import com.example.bookwise.Retrofit.PostRequestsDataClasses.User
+import com.example.bookwise.Retrofit.PutRequestDataClass.ResetResponse
+import com.example.bookwise.Retrofit.PutRequestDataClass.UserResetPassword
 import com.example.bookwise.Retrofit.ApiService
+import com.example.bookwise.Retrofit.GetRequestDataClasses.CardDetails
 import com.example.bookwise.UseCase.UseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -203,5 +204,52 @@ class MainViewModel(private val apiService: ApiService):ViewModel() {
         }
     }
     // Reset Password
+
+
+    //Get Card Details
+
+    private val cardDetailsLiveData = MutableLiveData<com.example.bookwise.Retrofit.GetCardsByUserId.CardDetails>()
+    val cardDetails:LiveData<com.example.bookwise.Retrofit.GetCardsByUserId.CardDetails>
+        get() = cardDetailsLiveData
+
+
+    private val cardLodingLiveData = MutableLiveData<Boolean>()
+    val cardLoading:LiveData<Boolean>
+        get() = cardLodingLiveData
+
+    private val cardErrorMessageLiveData = MutableLiveData<String>()
+    val cardErrorDetails:LiveData<String>
+        get() = cardErrorMessageLiveData
+
+    fun getCardDetails(id:Int){
+        Log.i("CardDEtails","Inside Func")
+        cardLodingLiveData.postValue(true)
+        viewModelScope.launch {
+            try {
+                val response = apiService.getCardDetails(id)
+                if (response.isSuccessful){
+                    Log.i("Inside Func","INSIDE-IF")
+                    val body = response.body()
+                    cardDetailsLiveData.postValue(body!!)
+                }else{
+                    Log.i("INSIDE-ELSE","${response.isSuccessful}")
+                    Log.i("Inside Func","INSIDE-ELSE")
+                    Log.i("INSIDE-ELSE",response.errorBody().toString())
+                    cardErrorMessageLiveData.postValue(response.errorBody().toString())
+                }
+            }
+            catch (e:Exception){
+                Log.i("Inside Func","INSIDE-CATCH")
+                cardErrorMessageLiveData.postValue(e.message)
+            }
+            finally {
+                Log.i("Inside Func","INSIDE-FInally")
+                cardLodingLiveData.postValue(false)
+            }
+        }
+    }
+
+    //Card Details
+
 
 }

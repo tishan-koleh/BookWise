@@ -14,7 +14,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.bookwise.Member.MemberActivity1
-import com.example.bookwise.PostRequestsDataClasses.User
+import com.example.bookwise.Retrofit.PostRequestsDataClasses.User
 import com.example.bookwise.Retrofit.ApiService
 import com.example.bookwise.Retrofit.RetrofitHepler
 import com.example.bookwise.ViewModels.MainVIewModelFactory
@@ -73,7 +73,7 @@ class NewUserFragment : Fragment() {
 
 
             if(ans){
-                val user = User(name,email,adress,contactNo,password)
+                val user = User(name,email,adress,contactNo,password,2)
                 viewModel.userRegistration(user)
             }
 

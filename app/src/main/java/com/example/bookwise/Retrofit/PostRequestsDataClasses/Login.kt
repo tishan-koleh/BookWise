@@ -1,4 +1,4 @@
-package com.example.bookwise.PostRequestsDataClasses
+package com.example.bookwise.Retrofit.PostRequestsDataClasses
 
 data class Login(
     val email: String,

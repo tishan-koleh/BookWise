@@ -51,15 +51,17 @@ class BooksFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-
-
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_books, container, false)
         val retrofitService  = RetrofitHepler.getInstance().create(ApiService::class.java)
         val factory = MainVIewModelFactory(retrofitService)
-        viewModel = ViewModelProvider(this,factory).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this,factory)[MainViewModel::class.java]
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel.getBookList()
 
         viewModel.isLoading.observe(viewLifecycleOwner, Observer {
@@ -84,8 +86,6 @@ class BooksFragment : Fragment() {
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
         })
 
-
-        return binding.root
     }
 
 

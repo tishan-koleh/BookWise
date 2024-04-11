@@ -1,4 +1,4 @@
-package com.example.bookwise.PutRequestDataClass
+package com.example.bookwise.Retrofit.PutRequestDataClass
 
 data class ResetResponse(
     val address: String,
