@@ -56,4 +56,16 @@ interface ApiService {
     suspend fun getTotalNoOfBooks():Response<Int>
 
 
+    @GET("/payment/totalFine")
+    suspend fun getTotalFine():Response<Int>
+
+    @GET("/cards/activecard")
+    suspend fun getActiveMembers():Response<Int>
+
+    @GET("/book/borrowedBooks")
+    suspend fun getTotalBorrowedBooks():Response<Int>
+
+
+
+
 }

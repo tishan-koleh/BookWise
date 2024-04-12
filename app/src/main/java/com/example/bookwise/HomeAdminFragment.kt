@@ -1,11 +1,21 @@
 package com.example.bookwise
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
+import com.example.bookwise.Retrofit.ApiService
+import com.example.bookwise.Retrofit.RetrofitHepler
+import com.example.bookwise.databinding.FragmentHomeAdminBinding
+import com.example.bookwise.databinding.FragmentHomeBinding
 import com.google.android.material.navigation.NavigationView
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,6 +28,9 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class HomeAdminFragment : Fragment() {
+
+    private lateinit var binding: FragmentHomeAdminBinding
+    private lateinit var apiService: ApiService
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -43,7 +56,25 @@ class HomeAdminFragment : Fragment() {
     ): View? {
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home_admin, container, false)
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_home_admin, container, false)
+        apiService = RetrofitHepler.getInstance().create(ApiService::class.java)
+        binding.progressBarAdmin.visibility = View.VISIBLE
+        binding.dashboardItems.visibility = View.GONE
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        lifecycleScope.launch {
+            binding.adminTotalBooksTv.text = apiService.getTotalNoOfBooks().body().toString()
+            binding.totalDuesTv.text = apiService.getTotalFine().body().toString()
+            binding.activeMembersTv.text = apiService.getActiveMembers().body().toString()
+            binding.adminBorrowedBooksTv.text = apiService.getTotalBorrowedBooks().body().toString()
+        }
+        Handler(Looper.myLooper()!!).postDelayed({
+            binding.progressBarAdmin.visibility = View.GONE
+            binding.dashboardItems.visibility = View.VISIBLE
+        },1000)
     }
 
     companion object {
