@@ -5,9 +5,14 @@ import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
@@ -25,6 +30,7 @@ import com.example.bookwise.UseCase.UseCase
 import com.example.bookwise.ViewModels.MainVIewModelFactory
 import com.example.bookwise.ViewModels.MainViewModel
 import com.example.bookwise.databinding.FragmentBooksBinding
+import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -43,11 +49,13 @@ class BooksFragment : Fragment() {
     private lateinit var binding : FragmentBooksBinding
     private lateinit var viewModel: MainViewModel
     private lateinit var adapter:ProgrammingAdapter
+    private lateinit var retrofitService : ApiService
     private var param1: String? = null
     private var param2: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -59,8 +67,9 @@ class BooksFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
+
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_books, container, false)
-        val retrofitService  = RetrofitHepler.getInstance().create(ApiService::class.java)
+         retrofitService  = RetrofitHepler.getInstance().create(ApiService::class.java)
         val factory = MainVIewModelFactory(retrofitService)
         viewModel = ViewModelProvider(this,factory)[MainViewModel::class.java]
         return binding.root
@@ -83,15 +92,22 @@ class BooksFragment : Fragment() {
             viewModel.isLoading.observe(viewLifecycleOwner, Observer {
                 if (it) {
                     showProgressBar()
+                    binding.totalBooksAvailableTv.visibility = View.GONE
                     binding.recyclerviewBooks.visibility = View.GONE
                 } else {
                     Handler().postDelayed({
                         hideProgressBar()
+                        binding.totalBooksAvailableTv.visibility = View.VISIBLE
                         binding.recyclerviewBooks.visibility = View.VISIBLE
                     },1000)
 
                 }
             })
+
+        lifecycleScope.launch {
+            binding.totalBooksAvailableTv.text = "Total Books Available : "+retrofitService.getTotalNoOfBooks().body().toString()
+        }
+
 
 
             viewModel.error.observe(viewLifecycleOwner, Observer {
@@ -121,6 +137,34 @@ class BooksFragment : Fragment() {
 
 
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_search, menu)
+        val searchItem = menu.findItem(R.id.action_search)
+        val searchView = searchItem.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                val filteredList = viewModel.book.value?.filter { book ->
+                    book.title.contains(newText ?: "", ignoreCase = true)
+                }
+                adapter.submitList(filteredList)
+                return false
+            }
+        })
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.action_search -> true
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
 

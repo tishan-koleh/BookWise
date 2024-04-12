@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.bookwise.Member.MemberActivity1
 import com.example.bookwise.Retrofit.ApiService
 import com.example.bookwise.Retrofit.RetrofitHepler
@@ -20,6 +21,7 @@ import com.example.bookwise.ViewModels.MainVIewModelFactory
 import com.example.bookwise.ViewModels.MainViewModel
 import com.example.bookwise.databinding.FragmentHomeBinding
 import com.google.android.material.navigation.NavigationView
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.util.Random
 
@@ -35,6 +37,7 @@ private const val ARG_PARAM2 = "param2"
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var viewModel: MainViewModel
+    lateinit var retrofitService:ApiService
     private var param1: String? = null
     private var param2: String? = null
 
@@ -54,7 +57,7 @@ class HomeFragment : Fragment() {
 
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_home, container, false)
-        val retrofitService  = RetrofitHepler.getInstance().create(ApiService::class.java)
+         retrofitService  = RetrofitHepler.getInstance().create(ApiService::class.java)
         val factory = MainVIewModelFactory(retrofitService)
         viewModel = ViewModelProvider(this,factory).get(MainViewModel::class.java)
 
@@ -65,6 +68,10 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.i("ID-CARD",SharedPreferencesHelper.readInt(Utils.user_id,-1).toString())
         viewModel.getCardDetails(SharedPreferencesHelper.readInt(Utils.user_id,-1))
+
+        lifecycleScope.launch {
+            binding.booksBorrowedTv.text = retrofitService.getNoOfBorrowedBooksByUser(SharedPreferencesHelper.readInt(Utils.card_id,-1)).body().toString()
+        }
 
         viewModel.cardLoading.observe(viewLifecycleOwner, Observer {
             if(it==true){

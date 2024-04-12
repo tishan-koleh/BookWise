@@ -49,5 +49,11 @@ interface ApiService {
     @POST("/transactionDetails")
     suspend fun borrowBook(@Body borrowBookDetails: BorrowBookDetails): Response<TransactionCompleated>
 
+    @GET("/transaction/TransactionByCardCount/{cardId}")
+    suspend fun getNoOfBorrowedBooksByUser(@Path("cardId") card_id:Int):Response<Int>
+
+    @GET("/book/availableQuantity")
+    suspend fun getTotalNoOfBooks():Response<Int>
+
 
 }

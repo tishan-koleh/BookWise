@@ -31,7 +31,17 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="130dp"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/total_books_available_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:fontFamily="@font/inter"
+                    android:text="Total Books Available : "
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview_books"
