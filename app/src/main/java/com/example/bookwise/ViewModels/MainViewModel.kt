@@ -15,6 +15,7 @@ import com.example.bookwise.Retrofit.PostRequestsDataClasses.User
 import com.example.bookwise.Retrofit.PutRequestDataClass.ResetResponse
 import com.example.bookwise.Retrofit.PutRequestDataClass.UserResetPassword
 import com.example.bookwise.Retrofit.ApiService
+import com.example.bookwise.Retrofit.BorrowedBooksByCardId.BorrowedBooksByCardId
 import com.example.bookwise.Retrofit.Transaction.BorrowBookDetails
 import com.example.bookwise.Retrofit.Transaction.ToCreateTransaction
 import com.example.bookwise.SharedPreferenceHelper.SharedPreferencesHelper
@@ -300,7 +301,49 @@ class MainViewModel(private val apiService: ApiService):ViewModel() {
 
 
     }
+    //Transaction
 
 
+
+
+    //Borrowed Books By Card Id
+
+    private val getBorrowedBooksLiveData = MutableLiveData<BorrowedBooksByCardId>()
+    val getBorrowedBooksData : LiveData<BorrowedBooksByCardId>
+        get() = getBorrowedBooksLiveData
+
+
+    private val getBorrowedBooksLoadingLiveData = MutableLiveData<Boolean>()
+    val cardLogetBorrowedBooksadingData:LiveData<Boolean>
+        get() = getBorrowedBooksLoadingLiveData
+
+    private val getBorrowedBooksErrorMessageLiveData = MutableLiveData<String>()
+    val getBorrowedBooksErrorMessage:LiveData<String>
+        get() = getBorrowedBooksErrorMessageLiveData
+
+
+    fun getBorrowedBooksByCardId(card_id:Int){
+        getBorrowedBooksLoadingLiveData.postValue(true)
+        Log.i("IN VIEWMODEL BORROWED BOOKS",card_id.toString())
+        viewModelScope.launch {
+            try {
+                Log.i("RESPONSE BORROWED BOOKS",apiService.getBorrowedBooksByCardId(card_id).isSuccessful.toString())
+                val response = apiService.getBorrowedBooksByCardId(card_id)
+                if(response.isSuccessful && response.body()!=null){
+                    val body = response.body()
+                    getBorrowedBooksLiveData.postValue(body!!)
+                }
+                else{
+                    getBorrowedBooksErrorMessageLiveData.postValue(response.errorBody().toString())
+                }
+            }
+            catch (e:Exception){
+                getBorrowedBooksErrorMessageLiveData.postValue(e.message.toString())
+            }
+            finally {
+                getBorrowedBooksLoadingLiveData.postValue(false)
+            }
+        }
+    }
 
 }

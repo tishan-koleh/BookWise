@@ -3,6 +3,7 @@ package com.example.bookwise.Retrofit
 import com.example.bookwise.Authentication.Registration.Login.LoginResponse
 import com.example.bookwise.Authentication.Registration.Registration
 import com.example.bookwise.Data.Book.BookList
+import com.example.bookwise.Retrofit.BorrowedBooksByCardId.BorrowedBooksByCardId
 import com.example.bookwise.Retrofit.PostRequestsDataClasses.Login
 import com.example.bookwise.Retrofit.PostRequestsDataClasses.User
 import com.example.bookwise.Retrofit.PutRequestDataClass.ResetResponse
@@ -64,6 +65,13 @@ interface ApiService {
 
     @GET("/book/borrowedBooks")
     suspend fun getTotalBorrowedBooks():Response<Int>
+
+
+    @GET("/transaction/TransactionByCardId/{cardId}")
+    suspend fun getBorrowedBooksByCardId(@Path("cardId") card_id :Int):Response<BorrowedBooksByCardId>
+
+    @GET("/payment/totalFineForUser/{user_id}")
+    suspend fun getFineByUserId(@Path("user_id") user_id:Int):Response<Int>
 
 
 

@@ -6,4 +6,5 @@ object Utils {
     val is_logged_in = "IS_LOGGED_IN"
     val card_id = "CARD_ID"
     val transaction_id = "TRANSACTION_ID"
+    val user_fine = "USER_FINE"
 }
