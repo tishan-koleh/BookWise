@@ -25,10 +25,10 @@ class ProgrammingAdapterBorrowedBookItem(private val mainViewModel: MainViewMode
         private val button : ImageView = view.findViewById(R.id.add_button)
         fun bind(item: BorrowedBooksByCardIdItem, mainViewModel: MainViewModel) {
             CoroutineScope(Dispatchers.Main).launch {
-                bookName.text = item.title
-                authorName.text = item.author.name
-                categoryName.text = item.genre.name
-                quantity.text = item.quantity.toString()
+                bookName.text = item.book.title
+                authorName.text = item.book.author.name
+                categoryName.text = item.book.genre.name
+                quantity.text = item.number.toString()
             }
         }
     }
@@ -46,7 +46,7 @@ class ProgrammingAdapterBorrowedBookItem(private val mainViewModel: MainViewMode
     companion object {
         class diffUtil : DiffUtil.ItemCallback<BorrowedBooksByCardIdItem>() {
             override fun areItemsTheSame(oldItem: BorrowedBooksByCardIdItem, newItem: BorrowedBooksByCardIdItem): Boolean {
-                return oldItem.id == newItem.id
+                return oldItem.book.id == newItem.book.id
             }
 
             override fun areContentsTheSame(oldItem: BorrowedBooksByCardIdItem, newItem: BorrowedBooksByCardIdItem): Boolean {
