@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#EEF4FC"
     android:paddingVertical="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -100,32 +99,15 @@
             app:layout_constraintTop_toBottomOf="@+id/author_name"
             app:layout_constraintVertical_bias="0.228" />
 
-        <Button
-            android:id="@+id/add_quantity_button"
-            android:layout_width="106dp"
-            android:layout_height="66dp"
-            android:backgroundTint="#1A8EA1"
-            android:fontFamily="@font/inter"
-            android:text="Borrow"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:cornerRadius="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.939"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <ImageView
             android:id="@+id/imageView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/add_quantity_button"
-            app:layout_constraintHorizontal_bias="0.174"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/category_name"
-            app:layout_constraintVertical_bias="0.409"
+            app:layout_constraintVertical_bias="0.272"
             app:srcCompat="@drawable/production_quantity" />
 
         <TextView
@@ -138,10 +120,22 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.081"
+            app:layout_constraintHorizontal_bias="0.083"
             app:layout_constraintStart_toEndOf="@+id/imageView9"
             app:layout_constraintTop_toBottomOf="@+id/category_name"
-            app:layout_constraintVertical_bias="0.407" />
+            app:layout_constraintVertical_bias="0.347" />
+
+        <ImageView
+            android:id="@+id/add_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.909"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.49"
+            app:srcCompat="@drawable/plus" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
