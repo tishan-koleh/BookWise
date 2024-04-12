@@ -4,6 +4,7 @@ import com.example.bookwise.Authentication.Registration.Login.LoginResponse
 import com.example.bookwise.Authentication.Registration.Registration
 import com.example.bookwise.Data.Book.BookList
 import com.example.bookwise.Retrofit.BorrowedBooksByCardId.BorrowedBooksByCardId
+import com.example.bookwise.Retrofit.GetAllUsers.UserList
 import com.example.bookwise.Retrofit.PostRequestsDataClasses.Login
 import com.example.bookwise.Retrofit.PostRequestsDataClasses.User
 import com.example.bookwise.Retrofit.PutRequestDataClass.ResetResponse
@@ -74,6 +75,8 @@ interface ApiService {
     suspend fun getFineByUserId(@Path("user_id") user_id:Int):Response<Int>
 
 
+    @GET("/user")
+    suspend fun getAllUsers():Response<UserList>
 
 
 }
