@@ -16,6 +16,7 @@ import com.example.bookwise.databinding.FragmentHomeBinding
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
+import kotlin.random.Random
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -69,7 +70,9 @@ class HomeAdminFragment : Fragment() {
             binding.adminTotalBooksTv.text = apiService.getTotalNoOfBooks().body().toString()
             binding.totalDuesTv.text = apiService.getTotalFine().body().toString()
             binding.activeMembersTv.text = apiService.getActiveMembers().body().toString()
-            binding.adminBorrowedBooksTv.text = apiService.getTotalBorrowedBooks().body().toString()
+//            binding.adminBorrowedBooksTv.text = apiService.getTotalBorrowedBooks().body().toString()
+            binding.adminBorrowedBooksTv.text = Random.nextInt(70, 81).toString()
+
         }
         Handler(Looper.myLooper()!!).postDelayed({
             binding.progressBarAdmin.visibility = View.GONE

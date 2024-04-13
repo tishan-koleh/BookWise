@@ -143,10 +143,10 @@
             android:layout_height="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.865"
+            app:layout_constraintHorizontal_bias="0.862"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.254"
+            app:layout_constraintVertical_bias="0.372"
             app:srcCompat="@drawable/plus" />
 
         <TextView
@@ -156,6 +156,7 @@
             android:background="@drawable/rounded"
             android:fontFamily="@font/inter"
             android:text="0"
+            android:inputType="number"
             android:textAlignment="center"
             android:textSize="18sp"
             android:textStyle="bold"

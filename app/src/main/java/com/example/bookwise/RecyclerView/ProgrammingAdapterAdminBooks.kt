@@ -51,7 +51,7 @@ class ProgrammingAdapterAdminBooks(private val mainViewModel: MainViewModel) : L
 
             }
             button.setOnClickListener {
-
+                mainViewModel.alertToView(item.author.id,item.genre.id,qunatityOfBook,item.title)
             }
 
             increaseQuantityButton.setOnClickListener{
@@ -81,7 +81,7 @@ class ProgrammingAdapterAdminBooks(private val mainViewModel: MainViewModel) : L
                 val filteredList = if (constraint.isNullOrBlank()) {
                     fullBookList
                 } else {
-                    val filterPattern = constraint.toString().toLowerCase().trim()
+                    val filterPattern = constraint.toString().lowercase().trim()
                     fullBookList.filter { user ->
                         user.title.lowercase().contains(filterPattern)
                     }

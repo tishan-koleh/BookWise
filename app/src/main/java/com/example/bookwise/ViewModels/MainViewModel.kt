@@ -10,12 +10,15 @@ import androidx.lifecycle.viewModelScope
 import com.example.bookwise.Authentication.Registration.Login.LoginResponse
 import com.example.bookwise.Authentication.Registration.Registration
 import com.example.bookwise.Data.Book.BookList
+import com.example.bookwise.Retrofit.AddOrUpdateBook.AddUpdateBook
 import com.example.bookwise.Retrofit.PostRequestsDataClasses.Login
 import com.example.bookwise.Retrofit.PostRequestsDataClasses.User
 import com.example.bookwise.Retrofit.PutRequestDataClass.ResetResponse
 import com.example.bookwise.Retrofit.PutRequestDataClass.UserResetPassword
 import com.example.bookwise.Retrofit.ApiService
+import com.example.bookwise.Retrofit.AuthorController.Author
 import com.example.bookwise.Retrofit.BorrowedBooksByCardId.BorrowedBooksByCardId
+import com.example.bookwise.Retrofit.GenreController.Genre
 import com.example.bookwise.Retrofit.Transaction.BorrowBookDetails
 import com.example.bookwise.Retrofit.Transaction.ToCreateTransaction
 import com.example.bookwise.SharedPreferenceHelper.SharedPreferencesHelper
@@ -361,5 +364,74 @@ class MainViewModel(private val apiService: ApiService):ViewModel() {
 
 
     //Add Book Quantity
+
+    private val bookAddedOrUpdatedLiveData = MutableLiveData<String>()
+    val bookAddedOrUpdatedData:LiveData<String>
+        get() = bookAddedOrUpdatedLiveData
+
+
+    fun addOrUpdateBook(authorName:String,genreName:String,quantity:Int,title:String){
+        viewModelScope.launch {
+            try {
+                val author = Author(authorName)
+                val authorId = apiService.addAuthor(author).body()?.id
+                val genre = Genre(genreName)
+                val genreId = apiService.addGenre(genre).body()?.id
+                val book = AddUpdateBook(title,quantity, authorId!!,genreId!!,0)
+                val bookResponse = apiService.addOrUpdateBook(book)
+                if(bookResponse.isSuccessful){
+                    Log.i("BOOK_ADD_UPDATE","Success")
+                    val bookBody = bookResponse.body()
+                    bookAddedOrUpdatedLiveData.postValue("Sucess")
+                }
+                else{
+                    Log.i("BOOK_ADD_UPDATE_ERROR",bookResponse.message())
+                }
+            }catch (e:Exception){
+                Log.i("BOOK_ADD_UPDATE_ERROR",e.message.toString())
+            }
+
+        }
+    }
+    var aurthorId:Int = 0
+    var genreId:Int = 0
+    var quantity:Int = 0
+    var title:String = ""
+
+
+
+    private val valAlertBookAddedLiveData = MutableLiveData<String>()
+    val valAlertBookAddedData:LiveData<String>
+        get() = valAlertBookAddedLiveData
+
+    fun alertToView(aurthorId:Int,genreId:Int,quantity:Int,title:String){
+        this.aurthorId = aurthorId
+        this.genreId = genreId
+        this.quantity = quantity
+        this.title = title
+        if (quantity==0){
+            valAlertBookAddedLiveData.postValue("Please add some quantity!")
+        }
+        else {
+            valAlertBookAddedLiveData.postValue("Do you want to add ${quantity} copies of ${title.uppercase()}")
+        }
+    }
+
+    fun addOrUpdateBook(){
+        Log.i("BOOK_ADD_UPDATE","INSIDE VIEWMODEL")
+        viewModelScope.launch {
+            try {
+                val book = AddUpdateBook(title,quantity,aurthorId,genreId,0)
+                val response = apiService.addOrUpdateBook(book)
+                val body = response.body()
+                if(response.isSuccessful){
+                    Log.i("BOOK_ADD_UPDATE","Success")
+                }
+            }catch (e:Exception)
+            {
+                Log.i("BOOK_ADD_UPDATE_ERROR",e.message.toString())
+            }
+        }
+    }
 
 }

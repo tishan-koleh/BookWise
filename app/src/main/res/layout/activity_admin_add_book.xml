@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -73,6 +74,7 @@
                     android:layout_marginTop="20dp">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/book_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Title" />
@@ -85,6 +87,7 @@
                     android:layout_marginTop="20dp">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/author_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Author" />
@@ -98,6 +101,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
+                        android:id="@+id/genre_name"
                         android:layout_height="wrap_content"
                         android:hint="Genre" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -110,6 +114,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
+                        android:id="@+id/book_quantity"
                         android:layout_height="wrap_content"
                         android:hint="Quantity" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -138,3 +143,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

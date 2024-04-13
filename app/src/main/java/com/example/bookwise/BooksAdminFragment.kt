@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -115,6 +116,31 @@ class BooksAdminFragment : Fragment() {
                 adapter.getFilter().filter(newText)
                 return true
             }
+        })
+
+        viewModel.valAlertBookAddedData.observe(viewLifecycleOwner, Observer {
+            if(it == "Please add some quantity!")
+            {
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Book")
+                    .setMessage(it)
+                    .setPositiveButton("OK") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .show()
+            }
+            else {
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Book")
+                    .setMessage(it)
+                    .setPositiveButton("OK") { dialog, _ ->
+                        viewModel.addOrUpdateBook()
+                        viewModel.getBookList()
+                        dialog.dismiss()
+                    }
+                    .show()
+            }
+
         })
 
     }
