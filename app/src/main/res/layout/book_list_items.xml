@@ -101,7 +101,7 @@
             app:layout_constraintVertical_bias="0.228" />
 
         <Button
-            android:id="@+id/add_quantity_button"
+            android:id="@+id/add_quantity_button_init"
             android:layout_width="106dp"
             android:layout_height="66dp"
             android:backgroundTint="#1A8EA1"
@@ -121,7 +121,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/add_quantity_button"
+            app:layout_constraintEnd_toStartOf="@+id/add_quantity_button_init"
             app:layout_constraintHorizontal_bias="0.174"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/category_name"

@@ -36,6 +36,10 @@ class ProgrammingAdapterAdminBooks(private val mainViewModel: MainViewModel) : L
         private val categoryName: TextView = view.findViewById(R.id.category_name)
         private val quantity: TextView = view.findViewById(R.id.quantity)
         private val button :ImageView = view.findViewById(R.id.add_button)
+        private val quantityTv : TextView = view.findViewById(R.id.add_quantity_tv)
+        private val increaseQuantityButton : ImageView = view.findViewById(R.id.add_quantity_button_init1)
+        private var qunatityOfBook:Int = 0;
+        private val decreaseQuantityButton : ImageView = view.findViewById(R.id.remove_quantity_button_init)
 
         fun bind(item: BookListItem,mainViewModel: MainViewModel) {
             CoroutineScope(Dispatchers.Main).launch {
@@ -43,9 +47,24 @@ class ProgrammingAdapterAdminBooks(private val mainViewModel: MainViewModel) : L
                 authorName.text = item.author.name
                 categoryName.text = item.genre.name
                 quantity.text = item.quantity.toString()
+                quantityTv.text = "0"
 
             }
             button.setOnClickListener {
+
+            }
+
+            increaseQuantityButton.setOnClickListener{
+                if(qunatityOfBook<9){
+                    qunatityOfBook++
+                    quantityTv.text = qunatityOfBook.toString()
+                }
+            }
+            decreaseQuantityButton.setOnClickListener{
+                if(qunatityOfBook>0){
+                    qunatityOfBook--
+                    quantityTv.text = qunatityOfBook.toString()
+                }
 
             }
         }

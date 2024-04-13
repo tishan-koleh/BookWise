@@ -3,6 +3,7 @@ package com.example.bookwise.Retrofit
 import com.example.bookwise.Authentication.Registration.Login.LoginResponse
 import com.example.bookwise.Authentication.Registration.Registration
 import com.example.bookwise.Data.Book.BookList
+import com.example.bookwise.Retrofit.AddOrUpdateBook.AddUpdateBook
 import com.example.bookwise.Retrofit.BorrowedBooksByCardId.BorrowedBooksByCardId
 import com.example.bookwise.Retrofit.GetAllUsers.UserList
 import com.example.bookwise.Retrofit.PostRequestsDataClasses.Login
@@ -81,6 +82,9 @@ interface ApiService {
 
     @DELETE("/user/{id}")
     suspend fun deleteUser(@Path("id") id:Int):Response<Unit>
+
+    @POST("/book/addOrUpdate")
+    suspend fun addOrUpdateBook(@Body addUpdateBook: AddUpdateBook):Response<String>
 
 
 }

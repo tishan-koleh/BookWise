@@ -26,7 +26,7 @@ class ProgrammingAdapter(private val mainViewModel: MainViewModel) : ListAdapter
         private val authorName: TextView = view.findViewById(R.id.author_name)
         private val categoryName: TextView = view.findViewById(R.id.category_name)
         private val quantity: TextView = view.findViewById(R.id.quantity)
-        private val button :Button = view.findViewById(R.id.add_quantity_button)
+        private val button :Button = view.findViewById(R.id.add_quantity_button_init)
 
 
 

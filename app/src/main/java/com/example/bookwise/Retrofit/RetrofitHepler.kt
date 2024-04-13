@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RetrofitHepler {
 
     companion object{
-        val BASE_URL = "http://192.168.145.35:8080"
+        val BASE_URL = "http://192.168.0.199:8080"
 
         @Volatile
         var INSTANCE : Retrofit? = null
