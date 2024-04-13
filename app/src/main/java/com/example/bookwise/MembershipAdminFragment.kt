@@ -1,66 +1,91 @@
 package com.example.bookwise
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.bookwise.RecyclerView.ProgrammingAdapterUserList
+import com.example.bookwise.Retrofit.ApiService
+import com.example.bookwise.Retrofit.RetrofitHepler
+import com.example.bookwise.ViewModels.MainVIewModelFactory
+import com.example.bookwise.ViewModels.MainViewModel
+import com.example.bookwise.databinding.FragmentMembershipAdminBinding
+import com.example.bookwise.databinding.FragmentMembershipAdminBindingImpl
 import com.google.android.material.navigation.NavigationView
+import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [MembershipAdminFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MembershipAdminFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-//    override fun onResume() {
-//        super.onResume()
-//        val navView = activity?.findViewById<NavigationView>(R.id.admin_nav_host_fragment)
-//        navView?.setCheckedItem(R.id.membership_admin)
-//    }
+    private lateinit var binding: FragmentMembershipAdminBinding
+    private lateinit var apiService: ApiService
+    private lateinit var viewModel: MainViewModel
+    private lateinit var adapter : ProgrammingAdapterUserList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_membership_admin, container, false)
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_membership_admin, container, false)
+        apiService = RetrofitHepler.getInstance().create(ApiService::class.java)
+        val factory = MainVIewModelFactory(apiService)
+        viewModel = ViewModelProvider(this,factory)[MainViewModel::class.java]
+        adapter = ProgrammingAdapterUserList(viewModel)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MembershipAdminFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MembershipAdminFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val recyclerView = binding.recyclerViewMembers
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        lifecycleScope.launch {
+            val users = apiService.getAllUsers().body()
+            Log.i("MYTAG",apiService.getAllUsers().isSuccessful.toString())
+            if(users==null){
+                adapter.submitList(listOf())
+            }else {
+                adapter.submitList(users)
+            }
+        }
+        recyclerView.adapter = adapter
+
+        viewModel.deleteAlert.observe(viewLifecycleOwner, Observer {
+            lifecycleScope.launch {
+                val users = apiService.getAllUsers().body()
+                Log.i("MYTAG",apiService.getAllUsers().isSuccessful.toString())
+                if(users==null){
+                    adapter.submitList(listOf())
+                }else {
+                    adapter.submitList(users)
                 }
             }
+        })
+
+        val searchView = binding.searchMember
+        searchView.visibility = View.GONE
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.getFilter().filter(newText)
+                return true
+            }
+        })
     }
+
+
 }

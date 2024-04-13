@@ -62,6 +62,8 @@ class BooksAdminFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_books_admin, container, false)
+        showProgressBar()
+        binding.recyclerViewAdminBooks.visibility = View.GONE
         val apiService = RetrofitHepler.getInstance().create(ApiService::class.java)
         val factory = MainVIewModelFactory(apiService)
         viewModel = ViewModelProvider(this,factory)[MainViewModel::class.java]

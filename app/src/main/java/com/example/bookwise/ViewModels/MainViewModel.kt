@@ -346,4 +346,16 @@ class MainViewModel(private val apiService: ApiService):ViewModel() {
         }
     }
 
+    //Delete user
+
+    private val deleteAlertLiveData = MutableLiveData<Boolean>()
+            val deleteAlert:LiveData<Boolean>
+                get() = deleteAlertLiveData
+    fun deleteUser(id:Int){
+        viewModelScope.launch {
+            apiService.deleteUser(id)
+            deleteAlertLiveData.postValue(true)
+        }
+    }
+
 }

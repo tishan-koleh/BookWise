@@ -15,6 +15,7 @@ import com.example.bookwise.Retrofit.Transaction.TransactionCompleated
 import com.example.bookwise.Retrofit.Transaction.TransactionCreated
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -77,6 +78,9 @@ interface ApiService {
 
     @GET("/user")
     suspend fun getAllUsers():Response<UserList>
+
+    @DELETE("/user/{id}")
+    suspend fun deleteUser(@Path("id") id:Int):Response<Unit>
 
 
 }
