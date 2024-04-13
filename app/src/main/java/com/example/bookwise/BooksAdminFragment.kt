@@ -102,6 +102,9 @@ class BooksAdminFragment : Fragment() {
 
 
         val searchView = binding.searchBooksAdmin
+        searchView.setOnClickListener {
+            searchView.isIconified = false
+        }
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {

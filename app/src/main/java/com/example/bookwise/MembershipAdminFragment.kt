@@ -73,6 +73,9 @@ class MembershipAdminFragment : Fragment() {
         })
 
         val searchView = binding.searchMember
+        searchView.setOnClickListener {
+            searchView.isIconified = false
+        }
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
