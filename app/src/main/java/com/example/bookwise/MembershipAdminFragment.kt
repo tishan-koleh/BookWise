@@ -55,7 +55,7 @@ class MembershipAdminFragment : Fragment() {
             if(users==null){
                 adapter.submitList(listOf())
             }else {
-                adapter.submitList(users)
+                adapter.updateList(users)
             }
         }
         recyclerView.adapter = adapter
@@ -73,7 +73,6 @@ class MembershipAdminFragment : Fragment() {
         })
 
         val searchView = binding.searchMember
-        searchView.visibility = View.GONE
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {

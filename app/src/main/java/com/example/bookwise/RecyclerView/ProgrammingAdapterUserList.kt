@@ -54,7 +54,7 @@ class ProgrammingAdapterUserList(private val viewModel: MainViewModel): ListAdap
         holder.bind(item,viewModel)
     }
 
-    fun updateList(list: List<UserListItem>) {
+    fun updateList(list: UserList) {
         fullUserList = list
         submitList(list)
     }
@@ -67,7 +67,7 @@ class ProgrammingAdapterUserList(private val viewModel: MainViewModel): ListAdap
                 } else {
                     val filterPattern = constraint.toString().toLowerCase().trim()
                     fullUserList.filter { user ->
-                        user.name.toLowerCase().contains(filterPattern)
+                        user.name.lowercase().contains(filterPattern)
                     }
                 }
 
