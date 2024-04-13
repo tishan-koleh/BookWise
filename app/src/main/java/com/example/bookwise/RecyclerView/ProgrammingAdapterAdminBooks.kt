@@ -5,13 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bookwise.Data.Book.BookList
 import com.example.bookwise.Data.Book.BookListItem
 import com.example.bookwise.R
+import com.example.bookwise.Retrofit.GetAllUsers.UserList
+import com.example.bookwise.Retrofit.GetAllUsers.UserListItem
 import com.example.bookwise.SharedPreferenceHelper.SharedPreferencesHelper
 import com.example.bookwise.Utils
 import com.example.bookwise.ViewModels.MainViewModel
@@ -19,7 +24,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ProgrammingAdapterAdminBooks(private val mainViewModel: MainViewModel) : ListAdapter<BookListItem, ProgrammingAdapterAdminBooks.ProgrammingViewHolder>(diffUtil()) {
+class ProgrammingAdapterAdminBooks(private val mainViewModel: MainViewModel) : ListAdapter<BookListItem, ProgrammingAdapterAdminBooks.ProgrammingViewHolder>(diffUtil()),Filterable {
+
+
+    private var fullBookList: List<BookListItem> = listOf()
 
     class ProgrammingViewHolder(view: View,mainViewModel: MainViewModel) : RecyclerView.ViewHolder(view) {
 
@@ -42,6 +50,34 @@ class ProgrammingAdapterAdminBooks(private val mainViewModel: MainViewModel) : L
             }
         }
     }
+
+    fun updateList(list: BookList) {
+        fullBookList = list
+        submitList(list)
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val filteredList = if (constraint.isNullOrBlank()) {
+                    fullBookList
+                } else {
+                    val filterPattern = constraint.toString().toLowerCase().trim()
+                    fullBookList.filter { user ->
+                        user.title.lowercase().contains(filterPattern)
+                    }
+                }
+
+                return FilterResults().apply { values = filteredList }
+            }
+
+            @Suppress("UNCHECKED_CAST")
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                submitList(results?.values as? List<BookListItem>)
+            }
+        }
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProgrammingViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.book_list_item_admin, parent, false)

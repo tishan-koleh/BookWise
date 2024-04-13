@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -83,7 +84,7 @@ class BooksAdminFragment : Fragment() {
         viewModel.getBookList()
         viewModel.book.observe(viewLifecycleOwner, Observer {
 
-            adapter.submitList(it)
+            adapter.updateList(it!!)
         })
 
         viewModel.isLoading.observe(viewLifecycleOwner, Observer {
@@ -96,6 +97,20 @@ class BooksAdminFragment : Fragment() {
                     binding.recyclerViewAdminBooks.visibility = View.VISIBLE
                 },1000)
 
+            }
+        })
+
+
+        val searchView = binding.searchBooksAdmin
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.getFilter().filter(newText)
+                return true
             }
         })
 
