@@ -149,7 +149,7 @@
             app:layout_constraintVertical_bias="0.372"
             app:srcCompat="@drawable/plus" />
 
-        <TextView
+        <EditText
             android:id="@+id/add_quantity_tv"
             android:layout_width="80dp"
             android:layout_height="wrap_content"

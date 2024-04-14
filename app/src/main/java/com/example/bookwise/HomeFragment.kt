@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.example.bookwise.Member.MemberActivity
 import com.example.bookwise.Member.MemberActivity1
 import com.example.bookwise.Retrofit.ApiService
 import com.example.bookwise.Retrofit.RetrofitHepler
@@ -66,6 +67,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val menu = (activity as MemberActivity).findViewById<NavigationView>(R.id.navigation_view).menu
+        menu.findItem(R.id.homeOption).isChecked = true
+
         Log.i("ID-CARD",SharedPreferencesHelper.readInt(Utils.user_id,-1).toString())
         viewModel.getCardDetails(SharedPreferencesHelper.readInt(Utils.user_id,-1))
 
@@ -102,7 +107,7 @@ class HomeFragment : Fragment() {
             binding.memberId.text = "DT-"+it.customer.user.id.toString()
             binding.cardId.text = "CT-"+it.id.toString()
             binding.contactNo.text = it.customer.user.contact_no
-            binding.joiningDateTv.text = it.issuedDate.substring(0,7)
+            binding.joiningDateTv.text = it.issuedDate.substring(0,10)
 
         })
     }

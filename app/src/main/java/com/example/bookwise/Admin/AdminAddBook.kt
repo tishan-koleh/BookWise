@@ -1,5 +1,6 @@
 package com.example.bookwise.Admin
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -11,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.example.bookwise.R
 import com.example.bookwise.Retrofit.ApiService
 import com.example.bookwise.Retrofit.RetrofitHepler
@@ -36,33 +38,30 @@ class AdminAddBook : AppCompatActivity() {
         viewModel = ViewModelProvider(this,factory)[MainViewModel::class.java]
 
 
+        val title = activityAdminAddBook.bookTitle.text.toString()
+        val author = activityAdminAddBook.authorName.text.toString()
+        val genre = activityAdminAddBook.genreName.text.toString()
+        val quantityString = activityAdminAddBook.bookQuantity.text.toString()
+        val quantity = if (quantityString.isBlank()) {
+            // Show an error message or use a default value
+            //Toast.makeText(this, "Quantity cannot be empty", Toast.LENGTH_SHORT).show()
+            0
+        } else {
+            quantityString.toInt()
+        }
 
         activityAdminAddBook.bookAddedButton.setOnClickListener {
-            val title = activityAdminAddBook.bookTitle.text.toString()
-            val author = activityAdminAddBook.authorName.text.toString()
-            val genre = activityAdminAddBook.genreName.text.toString()
-            val quantityString = activityAdminAddBook.bookQuantity.text.toString()
-            val quantity = if (quantityString.isBlank()) {
-                // Show an error message or use a default value
-                //Toast.makeText(this, "Quantity cannot be empty", Toast.LENGTH_SHORT).show()
-                0
-            } else {
-                quantityString.toInt()
-            }
+
 
             viewModel.addOrUpdateBook(author,genre, quantity, title)
         }
 
         viewModel.bookAddedOrUpdatedData.observe(this, Observer {
-            onBackPressed()
+            startActivity(Intent(this,AdminActivity::class.java))
+            Toast.makeText(this,"${title} Added",Toast.LENGTH_LONG).show()
         })
 
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        Toast.makeText(this,"Books Added",Toast.LENGTH_SHORT).show()
 
-        super.onBackPressed()
-    }
 }

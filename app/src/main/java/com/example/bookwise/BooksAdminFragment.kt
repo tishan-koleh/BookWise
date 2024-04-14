@@ -12,8 +12,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.bookwise.Admin.AdminActivity
 import com.example.bookwise.Admin.AdminAddBook
+import com.example.bookwise.Admin.AdminBaseActivity
 import com.example.bookwise.RecyclerView.ProgrammingAdapter
 import com.example.bookwise.RecyclerView.ProgrammingAdapterAdminBooks
 import com.example.bookwise.Retrofit.ApiService
@@ -21,6 +24,7 @@ import com.example.bookwise.Retrofit.RetrofitHepler
 import com.example.bookwise.ViewModels.MainVIewModelFactory
 import com.example.bookwise.ViewModels.MainViewModel
 import com.example.bookwise.databinding.FragmentBooksAdminBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import retrofit2.Retrofit
 import retrofit2.create
@@ -74,6 +78,8 @@ class BooksAdminFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val homeOption = (activity as AdminActivity).findViewById<BottomNavigationView>(R.id.admin_bottom_navigation).menu
+        homeOption.findItem(R.id.books_admin).isChecked = true
         binding.addBookButton.setOnClickListener {
             startActivity(Intent(this@BooksAdminFragment.context,AdminAddBook::class.java))
         }

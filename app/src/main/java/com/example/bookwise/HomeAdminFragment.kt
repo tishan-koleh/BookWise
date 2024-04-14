@@ -9,10 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
+import com.example.bookwise.Admin.AdminActivity
 import com.example.bookwise.Retrofit.ApiService
 import com.example.bookwise.Retrofit.RetrofitHepler
 import com.example.bookwise.databinding.FragmentHomeAdminBinding
 import com.example.bookwise.databinding.FragmentHomeBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
@@ -66,6 +68,8 @@ class HomeAdminFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val homeOption = (activity as AdminActivity).findViewById<BottomNavigationView>(R.id.admin_bottom_navigation).menu
+        homeOption.findItem(R.id.homeOption_admin).isChecked = true
         lifecycleScope.launch {
             binding.adminTotalBooksTv.text = apiService.getTotalNoOfBooks().body().toString()
             binding.totalDuesTv.text = apiService.getTotalFine().body().toString()

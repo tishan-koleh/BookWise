@@ -21,7 +21,7 @@
 
     <item
         android:id="@+id/fine_admin"
-        android:title="Fine"
+        android:title="Transaction"
         android:icon="@drawable/fine_selector"
         android:checkable="true"/>
 <!--    <item android:title="Other Options">-->

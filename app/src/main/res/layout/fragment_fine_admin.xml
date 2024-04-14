@@ -25,6 +25,7 @@
                 android:orientation="vertical">
 
                 <SearchView
+                    android:id="@+id/transation_searchView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="20dp"
@@ -37,8 +38,14 @@
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="20dp"
-                    android:background="@drawable/rounded">
+                    android:background="@drawable/rounded"
+                    android:paddingHorizontal="10dp"
+                    android:paddingTop="5dp">
 
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/transaction_details_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
                 </FrameLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

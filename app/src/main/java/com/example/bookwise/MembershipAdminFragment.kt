@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.bookwise.Admin.AdminActivity
 import com.example.bookwise.RecyclerView.ProgrammingAdapterUserList
 import com.example.bookwise.Retrofit.ApiService
 import com.example.bookwise.Retrofit.RetrofitHepler
@@ -19,6 +20,7 @@ import com.example.bookwise.ViewModels.MainVIewModelFactory
 import com.example.bookwise.ViewModels.MainViewModel
 import com.example.bookwise.databinding.FragmentMembershipAdminBinding
 import com.example.bookwise.databinding.FragmentMembershipAdminBindingImpl
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.launch
 
@@ -47,6 +49,8 @@ class MembershipAdminFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val homeOption = (activity as AdminActivity).findViewById<BottomNavigationView>(R.id.admin_bottom_navigation).menu
+        homeOption.findItem(R.id.membership_admin).isChecked = true
         val recyclerView = binding.recyclerViewMembers
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         lifecycleScope.launch {

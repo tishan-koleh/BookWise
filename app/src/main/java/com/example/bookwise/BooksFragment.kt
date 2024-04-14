@@ -23,6 +23,7 @@ import androidx.lifecycle.liveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bookwise.Data.Book.BookList
+import com.example.bookwise.Member.MemberActivity
 import com.example.bookwise.RecyclerView.ProgrammingAdapter
 import com.example.bookwise.Retrofit.ApiService
 import com.example.bookwise.Retrofit.RetrofitHepler
@@ -31,6 +32,7 @@ import com.example.bookwise.ViewModels.MainVIewModelFactory
 import com.example.bookwise.ViewModels.MainViewModel
 import com.example.bookwise.databinding.FragmentBooksBinding
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -77,6 +79,8 @@ class BooksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val menu = (activity as MemberActivity).findViewById<NavigationView>(R.id.navigation_view).menu
+        menu.findItem(R.id.books).isChecked = true
 
             val recyclerView = binding.recyclerviewBooks
             adapter = ProgrammingAdapter(viewModel)

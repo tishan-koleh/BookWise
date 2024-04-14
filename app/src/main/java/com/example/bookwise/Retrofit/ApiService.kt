@@ -18,6 +18,7 @@ import com.example.bookwise.Retrofit.Transaction.BorrowBookDetails
 import com.example.bookwise.Retrofit.Transaction.ToCreateTransaction
 import com.example.bookwise.Retrofit.Transaction.TransactionCompleated
 import com.example.bookwise.Retrofit.Transaction.TransactionCreated
+import com.example.bookwise.Retrofit.TransactionDetails.TransactionDetails
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -96,6 +97,9 @@ interface ApiService {
 
     @POST("/genre")
     suspend fun addGenre(@Body genre: Genre):Response<GenreDetails>
+
+    @GET("/transactionDetails/allTransactionDetails")
+    suspend fun getAllTransactionDetails():Response<TransactionDetails>
 
 
 }

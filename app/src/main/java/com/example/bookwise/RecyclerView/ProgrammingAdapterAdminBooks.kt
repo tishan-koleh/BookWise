@@ -1,5 +1,7 @@
 package com.example.bookwise.RecyclerView
 
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -42,6 +44,8 @@ class ProgrammingAdapterAdminBooks(private val mainViewModel: MainViewModel) : L
         private val decreaseQuantityButton : ImageView = view.findViewById(R.id.remove_quantity_button_init)
 
         fun bind(item: BookListItem,mainViewModel: MainViewModel) {
+            quantityTv.isClickable = false
+
             CoroutineScope(Dispatchers.Main).launch {
                 bookName.text = item.title
                 authorName.text = item.author.name
@@ -51,7 +55,13 @@ class ProgrammingAdapterAdminBooks(private val mainViewModel: MainViewModel) : L
 
             }
             button.setOnClickListener {
-                mainViewModel.alertToView(item.author.id,item.genre.id,qunatityOfBook,item.title)
+                mainViewModel.alertToView(item.author.id,item.genre.id,quantityTv.text.toString().toInt(),item.title)
+                Handler(Looper.myLooper()!!).postDelayed({
+                    quantity.text = (item.quantity+qunatityOfBook).toString()
+                    qunatityOfBook = 0
+                    quantityTv.text = qunatityOfBook.toString()
+                },500)
+
             }
 
             increaseQuantityButton.setOnClickListener{

@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.bookwise.Member.MemberActivity
 import com.example.bookwise.RecyclerView.ProgrammingAdapter
 import com.example.bookwise.RecyclerView.ProgrammingAdapterBorrowedBookItem
 import com.example.bookwise.Retrofit.ApiService
@@ -66,6 +67,10 @@ class ReturnFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val menu = (activity as MemberActivity).findViewById<NavigationView>(R.id.navigation_view).menu
+        menu.findItem(R.id.return_books).isChecked = true
+
         val recyclerView = binding.recyclerViewReturnMember
         val adapter = ProgrammingAdapterBorrowedBookItem(viewModel)
         adapter.submitList(listOf())

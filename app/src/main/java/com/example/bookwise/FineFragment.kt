@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
+import com.example.bookwise.Member.MemberActivity
 import com.example.bookwise.Retrofit.ApiService
 import com.example.bookwise.Retrofit.RetrofitHepler
 import com.example.bookwise.SharedPreferenceHelper.SharedPreferencesHelper
@@ -55,6 +56,9 @@ class FineFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val menu = (activity as MemberActivity).findViewById<NavigationView>(R.id.navigation_view).menu
+        menu.findItem(R.id.fine).isChecked = true
 
         if(SharedPreferencesHelper.readInt(Utils.user_fine,-1) != -2){
             val apiService = RetrofitHepler.getInstance().create(ApiService::class.java)
