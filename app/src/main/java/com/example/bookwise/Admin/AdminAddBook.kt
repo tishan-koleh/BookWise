@@ -38,19 +38,20 @@ class AdminAddBook : AppCompatActivity() {
         viewModel = ViewModelProvider(this,factory)[MainViewModel::class.java]
 
 
-        val title = activityAdminAddBook.bookTitle.text.toString()
-        val author = activityAdminAddBook.authorName.text.toString()
-        val genre = activityAdminAddBook.genreName.text.toString()
-        val quantityString = activityAdminAddBook.bookQuantity.text.toString()
-        val quantity = if (quantityString.isBlank()) {
-            // Show an error message or use a default value
-            //Toast.makeText(this, "Quantity cannot be empty", Toast.LENGTH_SHORT).show()
-            0
-        } else {
-            quantityString.toInt()
-        }
+
 
         activityAdminAddBook.bookAddedButton.setOnClickListener {
+            val title = activityAdminAddBook.bookTitle.text.toString()
+            val author = activityAdminAddBook.authorName.text.toString()
+            val genre = activityAdminAddBook.genreName.text.toString()
+            val quantityString = activityAdminAddBook.bookQuantity.text.toString()
+            val quantity = if (quantityString.isBlank()) {
+                // Show an error message or use a default value
+                //Toast.makeText(this, "Quantity cannot be empty", Toast.LENGTH_SHORT).show()
+                0
+            } else {
+                quantityString.toInt()
+            }
 
 
             viewModel.addOrUpdateBook(author,genre, quantity, title)
@@ -58,7 +59,7 @@ class AdminAddBook : AppCompatActivity() {
 
         viewModel.bookAddedOrUpdatedData.observe(this, Observer {
             startActivity(Intent(this,AdminActivity::class.java))
-            Toast.makeText(this,"${title} Added",Toast.LENGTH_LONG).show()
+            Toast.makeText(this,"Book Added",Toast.LENGTH_LONG).show()
         })
 
     }
