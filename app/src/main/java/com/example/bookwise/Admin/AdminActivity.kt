@@ -20,24 +20,24 @@ import com.example.bookwise.databinding.ActivityAdminActivityBinding
 class AdminActivity : AdminBaseActivity() {
 
 
-    override fun onLogoutButtonClick() {
-
-        AlertDialog.Builder(this)
-            .setTitle("Logout")
-            .setMessage("Are you sure you want to logout?")
-            .setPositiveButton("Yes") { dialog, _ ->
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
-                dialog.dismiss()
-            }
-            .setNegativeButton("No") { dialog, _ ->
-
-                dialog.dismiss()
-            }
-            .show()
-        Log.i("Admin", "Sucess")
-
-    }
+//    override fun onLogoutButtonClick() {
+//
+//        AlertDialog.Builder(this)
+//            .setTitle("Logout")
+//            .setMessage("Are you sure you want to logout?")
+//            .setPositiveButton("Yes") { dialog, _ ->
+//                startActivity(Intent(this, MainActivity::class.java))
+//                finish()
+//                dialog.dismiss()
+//            }
+//            .setNegativeButton("No") { dialog, _ ->
+//
+//                dialog.dismiss()
+//            }
+//            .show()
+//        Log.i("Admin", "Sucess")
+//
+//    }
 
     lateinit var activityAdminHome: ActivityAdminActivityBinding
 

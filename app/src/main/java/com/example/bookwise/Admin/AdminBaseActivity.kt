@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
@@ -38,10 +39,25 @@ open class AdminBaseActivity : AppCompatActivity() {
 
 
 
-    open fun onLogoutButtonClick() {
-        Log.i("Base", "Success")
-        startActivity(Intent(this, MainActivity::class.java))
-        finish() // Optionally finish the current activity
+    private fun onLogoutButtonClick() {
+//        Log.i("Base", "Success")
+//        startActivity(Intent(this, MainActivity::class.java))
+//        finish() // Optionally finish the current activity
+
+        AlertDialog.Builder(this)
+            .setTitle("Logout")
+            .setMessage("Are you sure you want to logout?")
+            .setPositiveButton("Yes") { dialog, _ ->
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+                dialog.dismiss()
+            }
+            .setNegativeButton("No") { dialog, _ ->
+
+                dialog.dismiss()
+            }
+            .show()
+        Log.i("Admin", "Sucess")
     }
 
 

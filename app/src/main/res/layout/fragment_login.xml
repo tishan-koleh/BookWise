@@ -63,7 +63,8 @@
                         android:id="@+id/email_input_text_field"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Email" />
+                        android:hint="Email"
+                        android:singleLine="true" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -77,7 +78,8 @@
                         android:id="@+id/password_input_text_field"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Password" />
+                        android:hint="Password"
+                        android:singleLine="true" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
